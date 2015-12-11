@@ -1,0 +1,39 @@
+<Enemies> <!-- XmlNodeList -->
+	<!--<Enemy>
+		<Name> </Name> Name of the enemy
+		<Type> </Type> Type of the enemy - Valid: Shooter, Meteoroid, Boss... 
+		<Shoots> </Shoots> If the enemy can shoot or not - Valid: true/false
+		<Speed> </Speed> The enemys movement speed - Valid: 0.01 - 0.99; 0.02 is a good value 
+		<Lifepoints> </Lifepoints> How often the enemy can be hit by the player
+		<Resources> </Resources> The amount of resources dropped by the enemy if killed by the player
+	</Enemy>-->
+	
+	<Enemy> <!-- XmlNode --> 
+		<Name>Small Shooter</Name>
+		<Type>Shooter</Type>
+		<Shoots>true</Shoots>
+		<Speed>0.02</Speed>
+		<Lifepoints>1</Lifepoints>
+		<Resources>10</Resources>
+	</Enemy> <!-- XmlNode -->
+	
+	<Enemy>
+		<Name>Medium Shooter</Name>
+		<Type>Shooter</Type>
+		<Shoots>true</Shoots>
+		<Speed>0.018</Speed>
+		<Lifepoints>2</Lifepoints>
+		<Resources>15</Resources>
+	</Enemy>
+	
+	<Enemy>
+		<Name>Small Meteoroid</Name>
+		<Type>Meteoroid</Type>
+		<Shoots>false</Shoots>
+		<Speed>0.3</Speed>
+		<Lifepoints>3</Lifepoints>
+		<Resources>30</Resources>
+	</Enemy>
+	
+	
+</Enemies> <!-- / XmlNodeList -->
