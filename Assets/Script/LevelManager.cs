@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
-    public Transform mainMenu, optionsMenu;
+    public Transform mainMenu, optionsMenu, gameBeforStart;
 
     public void StartGame(string name)
     {
@@ -24,6 +24,19 @@ public class LevelManager : MonoBehaviour {
         } else
         {
             optionsMenu.gameObject.SetActive(clicked);
+            mainMenu.gameObject.SetActive(true);
+        }
+    }
+
+    public void EnterNameMenu(bool clicked)
+    {
+        if (clicked)
+        {
+            gameBeforStart.gameObject.SetActive(clicked);
+            mainMenu.gameObject.SetActive(false);
+        } else
+        {
+            gameBeforStart.gameObject.SetActive(clicked);
             mainMenu.gameObject.SetActive(true);
         }
     }
