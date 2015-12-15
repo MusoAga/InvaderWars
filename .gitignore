@@ -1,5 +1,5 @@
 Temp/UnityLockfile
-Library
-obj
-ProjectSettings
-Temp
+Library/
+obj/
+ProjectSettings/
+Temp/
