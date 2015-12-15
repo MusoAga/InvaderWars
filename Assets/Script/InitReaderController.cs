@@ -128,9 +128,10 @@ public class InitReaderController : MonoBehaviour {
               if (levelNode.Name == levelNumber.ToString()) //Sucht die Werte des angegebenen Levels
               {
                  XmlNodeList levelContent = levelNode.ChildNodes;
+                    nodeItem.ToString(); // Kann gelöscht werden
+                    levelContent.ToString(); // Kann gelöscht werden
 
-
-              }
+                }
             }
         }
     }
