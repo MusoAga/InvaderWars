@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
+//ONLY FOR GAMEMENU
 public class LevelManager : MonoBehaviour {
 
-    public Transform mainMenu, optionsMenu, gameBeforStart;
+    public Transform mainMenu, optionsMenu;
 
     public void StartGame(string name)
     {
@@ -15,6 +17,11 @@ public class LevelManager : MonoBehaviour {
         Application.Quit();
     }
 
+    public void LoadScene(string name)
+    {
+        Application.LoadLevel(name);
+    }
+
     public void OptionsMenu(bool clicked)
     {
         if(clicked)
@@ -24,19 +31,6 @@ public class LevelManager : MonoBehaviour {
         } else
         {
             optionsMenu.gameObject.SetActive(clicked);
-            mainMenu.gameObject.SetActive(true);
-        }
-    }
-
-    public void EnterNameMenu(bool clicked)
-    {
-        if (clicked)
-        {
-            gameBeforStart.gameObject.SetActive(clicked);
-            mainMenu.gameObject.SetActive(false);
-        } else
-        {
-            gameBeforStart.gameObject.SetActive(clicked);
             mainMenu.gameObject.SetActive(true);
         }
     }

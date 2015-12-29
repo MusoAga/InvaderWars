@@ -6,6 +6,10 @@ public class GameController_Def : GameController {
 
     //List mit den noch aktiven Spielerbasen auf dem Todesstern.
     private List<GameObject> baseList = new List<GameObject>();
+    
+
+    /** Timer, der die verbleibende Spielzeit für das Level repräsentiert */
+    private int levelTimer = 10000;
 
     // Use this for initialization
     void Start () {
@@ -14,7 +18,7 @@ public class GameController_Def : GameController {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        base.checkMenus();
 	}
 
     public void initialiseLevel()

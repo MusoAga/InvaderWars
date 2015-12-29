@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,39 +13,39 @@ public class GameController : MonoBehaviour {
 
     /** Referenz auf das aktuelle Spielerobjekt */
     private GameObject player;
+    public GameObject pauseMenu, winMenu, loseMenu;
 
-    /** Timer, der die verbleibende Spielzeit für das Level repräsentiert */
-    // Woher kommt der Wert? 
-    private int levelTimer = 10000;
+    public Text collectedRessourcesValueText = null;
+    public Text totalRessourcesValueText = null;
+
 
     /** Die Gesamtzahl der vom Player gesammelten Ressourcen in diesem Level.  */
-    private int collectedResources = 6000;
+    private int collectedResources = 0;
     /** Die insgesamt Gesammelten Resourcen im ganzen Spiel */
-    private int totalResources;
+    private int totalResources = 0;
 
     /** Boolean-Werte für Spieler Gewonnen bzw. Verloren*/
     private bool playerLose = false;
     private bool playerWin = false;
     private bool pause = false;
 
-    public Texture loseWindow, winWindow;
-    private float TextureWidth = 200;
-    private float TextureHeight = 200;
+
+    public Text PlanetInfo;
+    public Text PlanetName;
 
     // Use this for initialization
     void Start () {
         //player = GetComponent<PlayerController_Base>();
-        tooglePause();
+
+        //make sure menus are disabled
+        pauseMenu.SetActive(false);
+        winMenu.SetActive(false);
+        loseMenu.SetActive(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            tooglePause();
-
-        if(!pause)
-            onTimeOver();
+        checkMenus();
     }
 
     /**
@@ -53,17 +54,7 @@ public class GameController : MonoBehaviour {
     */
     void OnGUI()
     {
-
-        GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + collectedResources.ToString());
-
-        if (playerLose)   
-            GUI.DrawTexture(new Rect((Screen.width / 2) - (TextureWidth / 2), (Screen.height / 2) - (TextureHeight / 2), TextureWidth, TextureHeight), loseWindow);
-        else if(playerWin)
-            GUI.DrawTexture(new Rect((Screen.width / 2) - (TextureWidth / 2), (Screen.height / 2) - (TextureHeight / 2), TextureWidth, TextureHeight), winWindow);
-
-        if(pause)
-            GUI.DrawTexture(new Rect((Screen.width / 2) - (TextureWidth / 2), (Screen.height / 2) - (TextureHeight / 2), TextureWidth, TextureHeight), winWindow);
-
+        GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + totalResources.ToString());
     }
 
     /**
@@ -94,9 +85,8 @@ public class GameController : MonoBehaviour {
     */
     public void onPlayerDestruction()
     {
-        print("enemy won");
         onEnemyWin();
-            updateGameStats();
+        updateGameStats();
     }
 
     /**
@@ -117,11 +107,7 @@ public class GameController : MonoBehaviour {
     */
     public void onTimeOver()
     {
-        levelTimer--;
-        if(levelTimer == 0)
-        {
-            onVictory();
-        }
+        onVictory();
     }
 
     /**
@@ -142,6 +128,7 @@ public class GameController : MonoBehaviour {
     public void updateGameStats()
     {
         totalResources += collectedResources;
+        collectedResources = 0;
     }
 
     /**
@@ -151,6 +138,40 @@ public class GameController : MonoBehaviour {
     public void addResources(int resources)
     {
         collectedResources += resources;
+    }
+
+    public void checkMenus()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            tooglePause();
+
+        if (pause)
+            pauseMenu.SetActive(true);
+        else
+            pauseMenu.SetActive(false);
+
+        if (playerWin)
+        {
+
+            winMenu.SetActive(true);
+
+            collectedRessourcesValueText.text = collectedResources.ToString();
+            totalRessourcesValueText.text = totalResources.ToString();
+
+            playerWin = false;
+        }
+
+        if (playerLose)
+        {
+            loseMenu.SetActive(true);
+            playerLose = false;
+        }
+
+    }
+
+    public bool isPaused()
+    {
+        return pause;
     }
 
     public void tooglePause()
@@ -166,5 +187,70 @@ public class GameController : MonoBehaviour {
             Time.timeScale = 0;
         }
     }
+
+    public void restartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void resumeLevel()
+    {
+        tooglePause();
+    }
+
+    public void quitLevel()
+    {
+        Application.LoadLevel("Planets");
+    }
+
+    public void setCurrentLevel(int i)
+    {
+        currentLevel = i;
+    }
+
+
+    /*
+    FÜR DIE PLANETENÜBERSICHT!
+    */
+    public void UpdatePlanetInfo(string planetName)
+    {
+        if (planetName.CompareTo("DroughtPlanet") == 0)
+        {
+            PlanetInfo.text = "Auf diesem Planeten herrscht die Dürre.\nDie Sonne verbrennt dich, \nwenn du keinen Schutz hast!";
+            PlanetName.text = "Zekila";
+            currentLevel = 1;
+        }
+        else if (planetName.CompareTo("IcePlanet") == 0)
+        {
+            PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
+            PlanetName.text = "Iconom";
+            currentLevel = 2;
+        }
+        else if (planetName.CompareTo("StonePlanet") == 0)
+        {
+            PlanetInfo.text = "Stein, Stein und noch mal Stein.\nDich erwarten viele Felsen.\n";
+            PlanetName.text = "Onix";
+            currentLevel = 3;
+        }
+        else if (planetName.CompareTo("RockPlanet") == 0)
+        {
+            PlanetInfo.text = "Riesengroße Felsen bieten\nden Bewohnern guten Schutz.\nWie wirst du vorgehen?";
+            PlanetName.text = "Rocky";
+            currentLevel = 4;
+        }
+        else if (planetName.CompareTo("SteelPlanet") == 0)
+        {
+            PlanetInfo.text = "So hart war dein Gegner noch nie!\nÜberlege gut welche Waffen\ndu verwendest.";
+            PlanetName.text = "Hardness";
+            currentLevel = 5;
+        }
+
+    }
+
+    public void StartPlanetLevel()
+    {
+        Application.LoadLevel("Angriff");
+    }
+    //-------------------------------------
 
 }
