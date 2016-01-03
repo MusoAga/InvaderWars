@@ -46,7 +46,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Objekte\Bosses\Ben\WormController.cs" />
+     <Compile Include="Assets\Objekte\Enemy\EnemyController_Base.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Defense.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Poison\Enemy_PoisonShip.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Poison\PoisonBehaviour.cs" />
      <Compile Include="Assets\Objekte\Explosion\Explosion.cs" />
      <Compile Include="Assets\Objekte\GameController\GameController.cs" />
      <Compile Include="Assets\Objekte\GameController\GameController_Def.cs" />

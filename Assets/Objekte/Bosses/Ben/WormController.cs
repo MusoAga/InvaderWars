@@ -28,8 +28,8 @@ public class WormController : MonoBehaviour, Hitable
         {
             GameObject prevEngine = (GameObject) engines[engines.Count-2];
             hj.connectedBody = prevEngine.GetComponent<Rigidbody2D>();
-            if (engines.Count == 2) ;
-                hj.connectedAnchor = new Vector2(0, -0.6f);
+           // if (engines.Count == 2) ;
+            //    hj.connectedAnchor = new Vector2(0, -0.6f);
         }
     }
 
@@ -43,11 +43,9 @@ public class WormController : MonoBehaviour, Hitable
 
     public void onHit()
     {
-        throw new NotImplementedException();
     }
 
     public void OnCollisionEnter2D(Collision2D coll)
     {
-        throw new NotImplementedException();
     }
 }
