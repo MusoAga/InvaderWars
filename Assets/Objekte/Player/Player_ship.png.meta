@@ -1,17 +1,18 @@
 fileFormatVersion: 2
-guid: ba0dca2205b251647975ddd7211a00a1
-timeCreated: 1450124695
+guid: c87224bf6a367a645984d9fba5c453d7
+timeCreated: 1451863119
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Graphics_Player_0
-    21300002: Graphics_Player_1
-    21300004: Graphics_Player_2
-    21300006: Graphics_Player_3
+    21300000: Player_ship_0
+    21300002: Player_ship_1
+    21300004: Player_ship_2
+    21300006: Player_ship_3
+    21300008: Player_ship_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -54,43 +55,53 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Graphics_Player_0
+    - name: Player_ship_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1
-        width: 60
-        height: 61
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Graphics_Player_1
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 1
-        width: 60
-        height: 61
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Graphics_Player_2
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 1
-        width: 60
-        height: 61
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Graphics_Player_3
-      rect:
-        serializedVersion: 2
-        x: 194
+        x: 0
         y: 0
-        width: 60
-        height: 62
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Player_ship_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Player_ship_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Player_ship_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Player_ship_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

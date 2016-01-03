@@ -13,7 +13,7 @@ public class PoisonBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer++;
-        if (timer > 200)
+        if (timer > 500)
             Destroy(gameObject);
 	}
 
