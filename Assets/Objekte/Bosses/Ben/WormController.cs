@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class WormController : EnemyController_Defense {
+public class WormController : MonoBehaviour, Hitable
+{
 
     public GameObject wormEngine;
     SortedList engines = new SortedList();
-    float movementSpeed = 0.5f;
+    float movementSpeed = 2f;
     bool isRushing;
     float timer;
 
@@ -34,8 +36,18 @@ public class WormController : EnemyController_Defense {
 	// Update is called once per frame
 	void Update () {
         GetComponent<Rigidbody2D>().velocity = transform.up * movementSpeed;
-        timer = Mathf.Repeat(timer + 0.001f, 2)-1;
-        if (!isRushing)
-            transform.rotation.Angle(new Vector2(), Mathf.Sin(timer));
+        timer += 0.01f;
+        gameObject.transform.Rotate(0, 0, Mathf.Sin(timer)*2);
+        print(transform.position.y);
 	}
+
+    public void onHit()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnCollisionEnter2D(Collision2D coll)
+    {
+        throw new NotImplementedException();
+    }
 }

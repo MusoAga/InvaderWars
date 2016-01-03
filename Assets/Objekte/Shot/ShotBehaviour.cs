@@ -14,8 +14,8 @@ public class ShotBehaviour : MonoBehaviour {
     
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.GetComponent<EnemyController_Defense>() != null)
-            coll.gameObject.GetComponent<EnemyController_Defense>().hit();
+        if (coll.gameObject.GetComponent<Hitable>() != null)
+            coll.gameObject.GetComponent<Hitable>().onHit();
         Destroy(gameObject);
     }
 }

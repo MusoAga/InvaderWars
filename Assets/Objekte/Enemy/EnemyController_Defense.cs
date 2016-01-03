@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class EnemyController_Defense : MonoBehaviour {
+public class EnemyController_Defense  : MonoBehaviour, Hitable {
 
     protected float speed = 2; // Flug-Geschwindigkeit 
     protected float lifepoints = 1; // Lebenspunkte
@@ -47,16 +48,22 @@ public class EnemyController_Defense : MonoBehaviour {
             fire.GetComponent<Rigidbody2D>().AddForce(transform.up * 300);
     }
 
-    public virtual void hit()
+    void onDestruction()
+    {
+        Explosion.explode(this.gameObject);
+        Destroy(this.gameObject);
+    }
+
+    // Der Gegner wird getroffen
+    public void onHit()
     {
         lifepoints--;
         if (lifepoints <= 0)
             onDestruction();
     }
 
-    void onDestruction()
+    public void OnCollisionEnter2D(Collision2D coll)
     {
-        Explosion.explode(this.gameObject);
-        Destroy(this.gameObject);
+        throw new NotImplementedException();
     }
 }

@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-
-
-public class PlayerController_Base : MonoBehaviour
+public class PlayerController_Base : MonoBehaviour, Hitable
 {	
     
 	protected float speed = 10; // Bewegungsgeschwindigkeit des Spielers
@@ -40,14 +39,6 @@ public class PlayerController_Base : MonoBehaviour
         GetComponent<AudioSource>().PlayOneShot(shootSound);
     }
 
-    // Wird aufgerufen, sobald der Spieler von Schüssen oder Raumschiffen getroffen wurde
-    public virtual void hit(int damage)
-    {
-		lifePoints = -damage;
-		// Keine lifepoints mehr vorhanden ? Spieler stirbt
-		if (lifePoints <= 0) onDestruction();
-	}
-
     // Spieler stirbt
     void onDestruction()
     {
@@ -64,13 +55,18 @@ public class PlayerController_Base : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(direction * speed);
     }
     
-    void OnCollisionEnter2D(Collision2D coll)
+    public void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.GetComponent<EnemyController_Defense>() != null)
-        { 
-            coll.gameObject.GetComponent<EnemyController_Defense>().hit();
-            hit(1);
-        }
+        onHit();
+        if (coll.gameObject.GetComponent<Hitable>() != null)
+            coll.gameObject.GetComponent<Hitable>().onHit();
+    }
+
+    public void onHit()
+    {
+        lifePoints = -1;
+        // Keine lifepoints mehr vorhanden ? Spieler stirbt
+        if (lifePoints <= 0) onDestruction();
     }
 
     //void onPickup(GameObject powerup) { }
