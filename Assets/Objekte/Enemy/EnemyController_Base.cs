@@ -6,7 +6,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     protected float speed = 2; // Flug-Geschwindigkeit 
     protected float lifepoints = 1; // Lebenspunkte
     protected int ressources; // Anzahl der Ressourcen, die beim Tod abgeworfen werden
-
+    protected float charge; // Aufladung des Schusses
 
     public GameObject shot;
     public AudioClip shootSound;
@@ -26,11 +26,12 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     }
 
     // Feuere Schüsse ab
-    void shoot()
+    public virtual void shoot()
     {
         // Sound abspielen
+        charge = 0;
         GetComponent<AudioSource>().PlayOneShot(shootSound);
-        GameObject fire = (GameObject)Instantiate(shot, transform.localPosition + transform.up / 2, transform.localRotation);
+        GameObject fire = (GameObject)Instantiate(shot, transform.localPosition + transform.up *0.6f, transform.localRotation);
         fire.GetComponent<Rigidbody2D>().AddForce(transform.up * 300);
     }
 
@@ -41,6 +42,11 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
             rigidBody.velocity = direction;
     }
 
+    // Bewegt das Raumschiff auf den angegebenen Punkt mit einer Geschwindigkeit von "speed" zu
+    protected void moveTowardsPoint(Vector3 targetPoint, float speed)
+    {
+      moveInDirection(Vector3.Lerp(transform.position, targetPoint, speed) - transform.position);
+    }
 
     void initializeStats()
     {
