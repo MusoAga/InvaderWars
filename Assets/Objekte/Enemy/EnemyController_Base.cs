@@ -65,7 +65,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     }
 
     // Der Gegner wird getroffen
-    public void onHit()
+    public virtual void onHit()
     {
         lifepoints--;
         if (lifepoints <= 0)
