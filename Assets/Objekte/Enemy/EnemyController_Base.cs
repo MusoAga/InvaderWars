@@ -19,6 +19,10 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
 	void Update () {
         if(!FindObjectOfType<GameController>().isPaused())
             enemyBehaviour();
+        // Sobald ein Gegner das Ende des Bildschirms erreicht hat, wird er entfernt
+        if (transform.position.y < -4)
+            Destroy(gameObject);
+
     }
 
     public virtual void enemyBehaviour()
