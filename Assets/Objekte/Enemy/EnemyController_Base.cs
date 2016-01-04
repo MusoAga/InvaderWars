@@ -17,7 +17,8 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
 	
 	// Update is called once per frame
 	void Update () {
-        enemyBehaviour();
+        if(!FindObjectOfType<GameController>().isPaused())
+            enemyBehaviour();
     }
 
     public virtual void enemyBehaviour()
