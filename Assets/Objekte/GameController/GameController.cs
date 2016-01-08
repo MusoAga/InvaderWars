@@ -174,6 +174,16 @@ public class GameController : MonoBehaviour {
         return pause;
     }
 
+    public bool won()
+    {
+        return playerWin;
+    }
+
+    public bool lose()
+    {
+        return playerLose;
+    }
+
     public void tooglePause()
     {
         if (pause)
