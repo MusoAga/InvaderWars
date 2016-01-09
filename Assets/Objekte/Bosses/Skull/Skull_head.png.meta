@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b069482e92fd4a046805051244ce249a
-timeCreated: 1451943073
+timeCreated: 1452026348
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -14,6 +14,8 @@ TextureImporter:
     21300014: Skull_head_7
     21300016: Skull_head_8
     21300018: Skull_head_9
+    21300020: Skull_head_10
+    21300022: Skull_head_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -154,6 +156,26 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Skull_head_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Skull_head_11
+      rect:
+        serializedVersion: 2
+        x: 1408
         y: 0
         width: 128
         height: 128

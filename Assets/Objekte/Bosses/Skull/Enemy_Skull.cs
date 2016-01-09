@@ -13,6 +13,7 @@ public class Enemy_Skull : EnemyController_Base
     {
         animator = GetComponent<Animator>();
         lifepoints = 2;
+        currentState = "Idle";
     }
 
     public void idle()
@@ -24,29 +25,26 @@ public class Enemy_Skull : EnemyController_Base
     {
         if (currentState == "Break") return;
 
-        if (currentState == "Idle") charge++;
-        
-            if (currentState != "Mortar")
-                transform.position = new Vector3(transform.position.x + Mathf.Cos(Time.frameCount / 200) / 100, transform.position.y+ Mathf.Sin(Time.frameCount/10)/100, transform.position.z);
-
-        if (currentState == "Idle" && charge > 200)
+        if (currentState == "Idle")
         {
-            charge = 0;
-            if (Random.Range(0, 3) > 1)
+            charge++;
+            transform.position = new Vector3(transform.position.x + Mathf.Cos(Time.frameCount / 200) / 100, transform.position.y + Mathf.Sin(Time.frameCount / 10) / 100, transform.position.z);
+            if (charge > 100)
+                if (Random.Range(0, 2) == 1)
             {
+                charge = 0;
                 currentState = "Laser";
-                animator.Play("LaserCharge");
+                animator.Play("Skull_ChargeLaser");
             }
-            else
-            {
-                GetComponent<AudioSource>().Play();
-                currentState = "Mortar";
-                animator.Play("Mortar");
-                laser = Instantiate(shot);
-                laser.transform.position = transform.position;
-
-                laser.transform.Rotate(0, 0, 180);
-            }
+                else
+                {
+                    charge = 0;
+                    currentState = "Beam";
+                    animator.Play("Skull_ChargeBeam");
+                    PlayerController_Base player = FindObjectOfType<PlayerController_Base>();
+                    if (player != null)
+                        transform.eulerAngles = new Vector3(0, 0, InvaderWars.getAngleBetweenTwoPoints(player.transform.position, transform.position));
+                }
         }
 
     }
@@ -64,10 +62,16 @@ public class Enemy_Skull : EnemyController_Base
         GetComponent<AudioSource>().Play();
     }
 
-    public void stopLaser()
+    public void shootBeam()
     {
-        currentState = "Idle";
-        Destroy(laser.gameObject);
+        PlayerController_Base player = FindObjectOfType<PlayerController_Base>();
+        if (player != null)
+            transform.eulerAngles = new Vector3(0, 0, InvaderWars.getAngleBetweenTwoPoints(player.transform.position, transform.position));
+        if (Time.frameCount % 10 != 0) return;
+        GetComponent<AudioSource>().Play();
+        laser = Instantiate(shot);
+        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 1, 0);
+        laser.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z+180);
     }
 
     // Der Gegner wird getroffen
@@ -83,14 +87,6 @@ public class Enemy_Skull : EnemyController_Base
         }
     }
 
-    public void mortar()
-    {
-        if (Time.frameCount % 80 != 0) return;
-        GetComponent<AudioSource>().Play();
-        laser = Instantiate(shot);
-        PlayerController_Base player = FindObjectOfType<PlayerController_Base>();
-        laser.transform.localPosition = new Vector2(player.transform.position.x, player.transform.position.y+2);
-    }
 
     public void onDestroy()
     {
