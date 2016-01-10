@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
     //private List<SpawnPoints> spawnPoints;
 
     /** Referenz auf das aktuelle Spielerobjekt */
-    private GameObject player;
+    public GameObject player;
     public GameObject pauseMenu, winMenu, loseMenu;
 
     public Text collectedRessourcesValueText = null;
@@ -35,7 +35,6 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //player = GetComponent<PlayerController_Base>();
 
         //make sure menus are disabled
         pauseMenu.SetActive(false);
@@ -173,6 +172,16 @@ public class GameController : MonoBehaviour {
     public bool isPaused()
     {
         return pause;
+    }
+
+    public bool won()
+    {
+        return playerWin;
+    }
+
+    public bool lose()
+    {
+        return playerLose;
     }
 
     public void tooglePause()

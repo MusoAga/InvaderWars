@@ -45,10 +45,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Objekte\Bosses\Ben\WormController.cs" />
+     <Compile Include="Assets\Objekte\Bosses\BossController.cs" />
+     <Compile Include="Assets\Objekte\Bosses\Rogue\Enemy_Rogue.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Animation\Animation_Skull_Behaviour.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Enemy_Skull.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Laser\LaserBehaviour.cs" />
+     <Compile Include="Assets\Objekte\Bosses\Worm\WormController.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Base.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Defense.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Enemy_Marauder.cs" />

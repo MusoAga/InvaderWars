@@ -25,7 +25,7 @@ public class Animation_Skull_Behaviour : StateMachineBehaviour {
             animator.GetComponent<Enemy_Skull>().idle();
 
 
-        if (stateInfo.IsName("Break"))
+        if (stateInfo.IsName("Skull_Break"))
             animator.GetComponent<Enemy_Skull>().onDestroy();
     }
 

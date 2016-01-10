@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy_Skull : EnemyController_Base
+public class Enemy_Skull : BossController
 {
 
     protected Animator animator;
@@ -18,6 +18,7 @@ public class Enemy_Skull : EnemyController_Base
 
     public void idle()
     {
+        if (currentState != "Break")
         currentState = "Idle";
     }
 
@@ -28,6 +29,7 @@ public class Enemy_Skull : EnemyController_Base
         if (currentState == "Idle")
         {
             charge++;
+            transform.eulerAngles = new Vector3();
             transform.position = new Vector3(transform.position.x + Mathf.Cos(Time.frameCount / 200) / 100, transform.position.y + Mathf.Sin(Time.frameCount / 10) / 100, transform.position.z);
             if (charge > 100)
                 if (Random.Range(0, 2) == 1)
@@ -52,12 +54,12 @@ public class Enemy_Skull : EnemyController_Base
     public void shootLaser()
     {
         laser = Instantiate(shot);
-        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 1, 0);
+        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 0.3f, 0);
         laser = Instantiate(shot);
-        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 1, 0);
+        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 0.3f, 0);
         laser.transform.Rotate(0, 0, 45);
         laser = Instantiate(shot);
-        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 1, 0);
+        laser.transform.localPosition = transform.position - laser.transform.position + new Vector3(0.2f, 0.3f, 0);
         laser.transform.Rotate(0, 0, -45);
         GetComponent<AudioSource>().Play();
     }
@@ -80,10 +82,11 @@ public class Enemy_Skull : EnemyController_Base
         if (currentState != "Laser")
             return;
         lifepoints--;
+        print("fwaf");
         if (lifepoints <= 0)
         {
             currentState = "Break";
-            animator.Play("Break");
+            animator.Play("Skull_Break");
         }
     }
 
