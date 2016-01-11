@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: 3132d231e4f47c04cbd25058cb4e666f
-timeCreated: 1451585290
+guid: d188945760b72884da4498abb2c83e28
+timeCreated: 1452542991
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Worm_head_0
-    21300002: Worm_head_1
-    21300004: Worm_head_2
-    21300006: Worm_head_3
-    21300008: Worm_head_4
-    21300010: Worm_head_5
-    21300012: Worm_head_6
+    21300000: Flamethrower_0
+    21300002: Flamethrower_1
+    21300004: Flamethrower_2
+    21300006: Flamethrower_3
+    21300008: Flamethrower_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -57,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Worm_head_0
+    - name: Flamethrower_0
       rect:
         serializedVersion: 2
         x: 0
@@ -67,7 +65,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Worm_head_1
+    - name: Flamethrower_1
       rect:
         serializedVersion: 2
         x: 64
@@ -77,7 +75,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Worm_head_2
+    - name: Flamethrower_2
       rect:
         serializedVersion: 2
         x: 128
@@ -87,7 +85,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Worm_head_3
+    - name: Flamethrower_3
       rect:
         serializedVersion: 2
         x: 192
@@ -97,30 +95,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Worm_head_4
+    - name: Flamethrower_4
       rect:
         serializedVersion: 2
         x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Worm_head_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Worm_head_6
-      rect:
-        serializedVersion: 2
-        x: 384
         y: 0
         width: 64
         height: 64

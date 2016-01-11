@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemyController_Base : MonoBehaviour, Hitable {
 
@@ -50,8 +51,9 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
         // Sound abspielen
         charge = 0;
         GetComponent<AudioSource>().PlayOneShot(shootSound);
-        GameObject fire = (GameObject)Instantiate(shot, transform.localPosition + transform.up *0.6f, transform.localRotation);
+        GameObject fire = (GameObject)Instantiate(shot, transform.localPosition + transform.up/2, transform.localRotation);
         fire.GetComponent<Rigidbody2D>().AddForce(transform.up * 300);
+        fire.GetComponent<ShotBehaviour>().shoot(gameObject);
     }
 
     protected void moveInDirection(Vector3 direction)
@@ -76,19 +78,30 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     {
         FindObjectOfType<GameController>().addResources(10);
         Explosion.explode(this.gameObject);
-        Destroy(this.gameObject);
-        spawnOrigin.GetComponent<SpawnController>().enemyDied();
+        Destroy(gameObject);
+        //spawnOrigin.GetComponent<SpawnController>().enemyDied();
     }
 
     // Der Gegner wird getroffen
     public virtual void onHit()
     {
+        dealDamage((int) lifepoints+1);
+    }
+
+    public void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.GetComponent<PlayerController_Base>() != null)
+        {
+            coll.gameObject.GetComponent<Hitable>().dealDamage(1);
+            onHit();
+        }
+    }
+
+    // Füge Schaden zu
+    public void dealDamage(int damage)
+    {
         lifepoints--;
         if (lifepoints <= 0)
             onDestruction();
-    }
-
-    public void OnCollisionEnter2D(Collision2D coll)
-    {
     }
 }

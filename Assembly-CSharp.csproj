@@ -50,9 +50,10 @@
      <Compile Include="Assets\Objekte\Bosses\Skull\Animation\Animation_Skull_Behaviour.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Enemy_Skull.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Laser\LaserBehaviour.cs" />
-     <Compile Include="Assets\Objekte\Bosses\Worm\WormController.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Base.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Defense.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Flamethrower\Enemy_Flamethrower.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Flamethrower\Flameshot\Flameshot_Behaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Enemy_Marauder.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Rocket\RocketBehaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\Minethrower\Enemy_MineThrower.cs" />
