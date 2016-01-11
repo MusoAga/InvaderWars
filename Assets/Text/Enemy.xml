@@ -6,33 +6,41 @@
 		<Speed> </Speed> The enemys movement speed - Valid: 0.01 - 0.99; 0.02 is a good value 
 		<Lifepoints> </Lifepoints> How often the enemy can be hit by the player
 		<Resources> </Resources> The amount of resources dropped by the enemy if killed by the player
+		<Sprite></Sprite> The name of the used Sprite. The Sprite needs to be located in the Assets/Sprite folder. The name should contain the format-ending (.jpg...)
+		<Collidersize></Collidersize> The float size of the enemys boxcollider. The collider will be twice as big as the given number
 	</Enemy>-->
 	
 	<Enemy> <!-- XmlNode --> 
-		<Name>Small Shooter</Name>
+		<Name>Small_Shooter_Defense</Name>
 		<Type>Shooter</Type>
 		<Shoots>true</Shoots>
 		<Speed>0.02</Speed>
 		<Lifepoints>1</Lifepoints>
 		<Resources>10</Resources>
+		<Sprite>small_shooter.jpg</Sprite>
+		<Collidersize>0.5</Collidersize>
 	</Enemy> <!-- XmlNode -->
 	
 	<Enemy>
-		<Name>Medium Shooter</Name>
+		<Name>Medium_Shooter_Defense</Name>
 		<Type>Shooter</Type>
 		<Shoots>true</Shoots>
 		<Speed>0.018</Speed>
 		<Lifepoints>2</Lifepoints>
 		<Resources>15</Resources>
+		<Sprite>medium_shooter.jpg</Sprite>
+		<Collidersize>0.5</Collidersize>
 	</Enemy>
 	
 	<Enemy>
-		<Name>Small Meteoroid</Name>
+		<Name>Small_Meteoroid_Defense</Name>
 		<Type>Meteoroid</Type>
 		<Shoots>false</Shoots>
 		<Speed>0.3</Speed>
 		<Lifepoints>3</Lifepoints>
 		<Resources>30</Resources>
+		<Sprite>small_meteoroid.jpg</Sprite>
+		<Collidersize>0.5</Collidersize>
 	</Enemy>
 	
 	

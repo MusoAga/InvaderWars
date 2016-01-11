@@ -2,17 +2,22 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class GameController : MonoBehaviour {
 
     /** Int mit Zahl des aktuellen Levels. Wird zur Initiierung des Levels beim Laden benutzt. */
     private int currentLevel;
+    private int currentDifficulty;
 
     /** List mit allen SpawnPoints des aktuellen Levels. */
     //private List<SpawnPoints> spawnPoints;
 
     /** Referenz auf das aktuelle Spielerobjekt */
-    private GameObject player;
+
+    //private GameObject player;
+    public GameObject player;
+
     public GameObject pauseMenu, winMenu, loseMenu;
 
     public Text collectedRessourcesValueText = null;
@@ -33,19 +38,31 @@ public class GameController : MonoBehaviour {
     public Text PlanetInfo;
     public Text PlanetName;
 
+    //Referenz auf den InitController des Levels
+    public GameObject InitController;
+    public GameObject spawnpoint;
+    private Dictionary<string, string> levelInfo;
+    private GameObject[] enemies;
+
     // Use this for initialization
     void Start () {
+
         //player = GetComponent<PlayerController_Base>();
+
 
         //make sure menus are disabled
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
+
+        Time.timeScale = 1;
+        initialiseLevel(1);
     }
 	
 	// Update is called once per frame
 	void Update () {
         checkMenus();
+        
     }
 
     /**
@@ -71,7 +88,7 @@ public class GameController : MonoBehaviour {
     /**
     Erzeugt die SpawnPoints des Levels anhand der ArrayList spawnPoints.
     */
-    public void createSpawnPoints()
+    public void createSpawnPoint(int x, int y, GameObject[] enemies)
     {
 
     }
@@ -174,6 +191,17 @@ public class GameController : MonoBehaviour {
         return pause;
     }
 
+    public bool won()
+    {
+        return playerWin;
+    }
+
+    public bool lose()
+    {
+        return playerLose;
+    }
+
+
     public void tooglePause()
     {
         if (pause)
@@ -198,6 +226,7 @@ public class GameController : MonoBehaviour {
         tooglePause();
     }
 
+
     public void quitLevel()
     {
         Application.LoadLevel("Planets");
@@ -206,6 +235,11 @@ public class GameController : MonoBehaviour {
     public void setCurrentLevel(int i)
     {
         currentLevel = i;
+    }
+
+    public void startScene(string scene)
+    {
+        Application.LoadLevel(scene);
     }
 
 
@@ -247,9 +281,47 @@ public class GameController : MonoBehaviour {
 
     }
 
+    public void initialiseLevel(int levelNumber) 
+    {
+        enemies = new GameObject[4];
+        currentDifficulty = 0;
+        int enemyCounter = 0;
+        string[] spawnpointChoords = new string[2];
+        string enemyPath = "Assets/Objekte/Enemy/";
+        levelInfo = InitController.GetComponent<InitReaderController>().initialiseLevel(levelNumber);
+        foreach (string info in levelInfo.Keys)
+        {
+            enemyPath = "Assets/Objekte/Enemy/";
+            if (info.Contains("Enemytype_"))
+            {
+                enemyPath = "Assets/Objekte/Enemy/" + levelInfo[info] + ".prefab" ;
+                enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(enemyPath, typeof(Object)) as GameObject;
+                enemyCounter++;
+            }
+            else if (info.Equals("Difficulty"))
+            {
+                currentDifficulty = int.Parse(levelInfo[info]);
+            }
+
+            else if (info.Contains("Spawnpoint_"))
+            {
+               spawnpointChoords = levelInfo[info].Split(new char[] {','});
+               GameObject Spawnpoint = Instantiate(spawnpoint, new Vector2(int.Parse(spawnpointChoords[0]), int.Parse(spawnpointChoords[1])), Quaternion.identity) as GameObject;
+               Spawnpoint.GetComponent<SpawnController>().setup(enemies, currentDifficulty);
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+
     public void StartPlanetLevel()
     {
+
         Application.LoadLevel("Angriff");
+
+        Application.LoadLevel("Defense");
     }
     //-------------------------------------
 

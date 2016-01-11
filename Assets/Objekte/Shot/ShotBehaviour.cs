@@ -8,14 +8,14 @@ public class ShotBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         lifetime++;
-        if (lifetime > 50)
+        if (lifetime > 100)
             DestroyObject(gameObject);
 	}
     
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.GetComponent<EnemyController_Defense>() != null)
-            coll.gameObject.GetComponent<EnemyController_Defense>().hit();
+        if (coll.gameObject.GetComponent<Hitable>() != null)
+            coll.gameObject.GetComponent<Hitable>().onHit();
         Destroy(gameObject);
     }
 }

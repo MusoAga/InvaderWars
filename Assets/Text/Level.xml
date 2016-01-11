@@ -1,0 +1,44 @@
+<!--
+Description:
+	<Level>
+		<Levelnumber><Levelnumber> - Number of the level; Number should be unique!
+		<Mode></Mode> - Mode of the level - Only "attack" or "defend" are allowed! 
+		<Difficulty></Difficulty> - Difficulty Level of a 
+		<Enemytype_1></Enemytype_1>
+		<Enemytype_2></Enemytype_2>
+		<Enemytype_3></Enemytype_3>
+		<Enemytype_4></Enemytype_4>
+	</Level>
+-->
+
+
+<Levels>
+	<Level>
+		<Levelnumber>1</Levelnumber>
+		<Mode>attack</Mode>
+		<Difficulty>2</Difficulty>
+		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
+		<Enemytype_2>Medium_Shooter_Defense</Enemytype_2>
+		<Enemytype_3>Small_Meteoroid_Defense</Enemytype_3>
+		<Enemytype_4>Small_Meteoroid_Defense</Enemytype_4>
+		
+		<Spawnpoint>
+			<Spawnpoint_x>3</Spawnpoint_x>
+			<Spawnpoint_y>3</Spawnpoint_y>
+		</Spawnpoint>
+		
+		<Spawnpoint>
+			<Spawnpoint_x>-3</Spawnpoint_x>
+			<Spawnpoint_y>3</Spawnpoint_y>
+		</Spawnpoint>
+		
+		<Spawnpoint>
+			<Spawnpoint_x>0</Spawnpoint_x>
+			<Spawnpoint_y>3</Spawnpoint_y>
+		</Spawnpoint>
+		
+		
+	</Level>
+
+
+</Levels>

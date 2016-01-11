@@ -13,12 +13,14 @@ public class GameController_Def : GameController {
 
     // Use this for initialization
     void Start () {
-	
-	}
+        Time.timeScale = 1;
+        base.initialiseLevel(1);
+    }
 	
 	// Update is called once per frame
 	void Update () {
         base.checkMenus();
+        
 	}
 
     public void initialiseLevel()
@@ -27,7 +29,7 @@ public class GameController_Def : GameController {
         //baseList.Add(PlayerBase);
         //baseList.Add(PlayerBase);
 
-        createSpawnPoints();
+        
 
     }
 
