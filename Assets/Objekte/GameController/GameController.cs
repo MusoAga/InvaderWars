@@ -128,7 +128,6 @@ public class GameController : MonoBehaviour {
     public void updateGameStats()
     {
         totalResources += collectedResources;
-        collectedResources = 0;
     }
 
     /**
@@ -158,6 +157,7 @@ public class GameController : MonoBehaviour {
             collectedRessourcesValueText.text = collectedResources.ToString();
             totalRessourcesValueText.text = totalResources.ToString();
 
+            collectedResources = 0;
             playerWin = false;
         }
 
@@ -219,35 +219,23 @@ public class GameController : MonoBehaviour {
     */
     public void UpdatePlanetInfo(string planetName)
     {
-        if (planetName.CompareTo("DroughtPlanet") == 0)
-        {
-            PlanetInfo.text = "Auf diesem Planeten herrscht die Dürre.\nDie Sonne verbrennt dich, \nwenn du keinen Schutz hast!";
-            PlanetName.text = "Zekila";
-            currentLevel = 1;
-        }
-        else if (planetName.CompareTo("IcePlanet") == 0)
+        if (planetName.Equals("IcePlanet"))
         {
             PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
             PlanetName.text = "Iconom";
+            currentLevel = 1;
+        }
+        else if (planetName.Equals("SwampPlanet"))
+        {
+            PlanetInfo.text = "Gift";
+            PlanetName.text = "Gifti";
             currentLevel = 2;
         }
-        else if (planetName.CompareTo("StonePlanet") == 0)
+        else if (planetName.Equals("VolcanoPlanet"))
         {
-            PlanetInfo.text = "Stein, Stein und noch mal Stein.\nDich erwarten viele Felsen.\n";
-            PlanetName.text = "Onix";
+            PlanetInfo.text = "FEUER!";
+            PlanetName.text = "Feuri";
             currentLevel = 3;
-        }
-        else if (planetName.CompareTo("RockPlanet") == 0)
-        {
-            PlanetInfo.text = "Riesengroße Felsen bieten\nden Bewohnern guten Schutz.\nWie wirst du vorgehen?";
-            PlanetName.text = "Rocky";
-            currentLevel = 4;
-        }
-        else if (planetName.CompareTo("SteelPlanet") == 0)
-        {
-            PlanetInfo.text = "So hart war dein Gegner noch nie!\nÜberlege gut welche Waffen\ndu verwendest.";
-            PlanetName.text = "Hardness";
-            currentLevel = 5;
         }
 
     }

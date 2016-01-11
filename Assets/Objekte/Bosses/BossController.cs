@@ -20,4 +20,11 @@ public class BossController : EnemyController_Base {
         base.onHit();
         bossHealthBar.value = lifepoints;
     }
+
+    public override void onDestruction()
+    {
+        base.onDestruction();
+        FindObjectOfType<GameController>().addResources(200);
+        FindObjectOfType<GameController>().onVictory();
+    }
 }
