@@ -12,7 +12,8 @@ public class BossController : EnemyController_Base {
 	
 	// Update is called once per frame
 	void Update () {
-        enemyBehaviour();
+        if(!FindObjectOfType<GameController>().isPaused())
+            enemyBehaviour();
 	}
 
     public override void onHit()
