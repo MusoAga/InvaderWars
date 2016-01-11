@@ -12,10 +12,12 @@ public class ShotBehaviour : MonoBehaviour {
             DestroyObject(gameObject);
 	}
     
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.GetComponent<Hitable>() != null)
+        { 
             coll.gameObject.GetComponent<Hitable>().onHit();
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

@@ -39,6 +39,33 @@ Description:
 		
 		
 	</Level>
+	
+	<Level>
+		<Levelnumber>2</Levelnumber>
+		<Mode>attack</Mode>
+		<Difficulty>3</Difficulty>
+		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
+		<Enemytype_2>Medium_Shooter_Defense</Enemytype_2>
+		<Enemytype_3>Small_Meteoroid_Defense</Enemytype_3>
+		<Enemytype_4>Small_Meteoroid_Defense</Enemytype_4>
+		
+		<Spawnpoint>
+			<Spawnpoint_x>4</Spawnpoint_x>
+			<Spawnpoint_y>3</Spawnpoint_y>
+		</Spawnpoint>
+		
+		<Spawnpoint>
+			<Spawnpoint_x>-2</Spawnpoint_x>
+			<Spawnpoint_y>3</Spawnpoint_y>
+		</Spawnpoint>
+		
+		<Spawnpoint>
+			<Spawnpoint_x>0</Spawnpoint_x>
+			<Spawnpoint_y>3</Spawnpoint_y>
+		</Spawnpoint>
+		
+		
+	</Level>
 
 
 </Levels>

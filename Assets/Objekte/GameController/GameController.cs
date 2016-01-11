@@ -43,6 +43,9 @@ public class GameController : MonoBehaviour {
     public GameObject spawnpoint;
     private Dictionary<string, string> levelInfo;
     private GameObject[] enemies;
+    private SortedList<int, GameObject> spawnpoints = new SortedList<int, GameObject>();
+    private int spawningSpawnpoints = 99;
+    private bool bossSpawned = false;
 
     // Use this for initialization
     void Start () {
@@ -56,12 +59,24 @@ public class GameController : MonoBehaviour {
         loseMenu.SetActive(false);
 
         Time.timeScale = 1;
-        initialiseLevel(1);
+        DontDestroyOnLoad(gameObject);
+        OnLevelWasLoaded(Application.loadedLevel);
     }
 	
 	// Update is called once per frame
 	void Update () {
         checkMenus();
+        if (checkSpawnsFinished() && !bossSpawned)
+        {
+            print("boss gespawnt");
+            foreach(KeyValuePair<int, GameObject> pair in spawnpoints){
+                if (pair.Key.Equals(1))
+                {
+                    pair.Value.GetComponent<SpawnController>().spawnBoss();
+                }
+            }
+            bossSpawned = true;
+        }
         
     }
 
@@ -248,7 +263,7 @@ public class GameController : MonoBehaviour {
     */
     public void UpdatePlanetInfo(string planetName)
     {
-        if (planetName.CompareTo("DroughtPlanet") == 0)
+        if (planetName.Equals("DroughtPlanet"))
         {
             PlanetInfo.text = "Auf diesem Planeten herrscht die Dürre.\nDie Sonne verbrennt dich, \nwenn du keinen Schutz hast!";
             PlanetName.text = "Zekila";
@@ -281,14 +296,35 @@ public class GameController : MonoBehaviour {
 
     }
 
+    public void spawnFinished()
+    {
+        spawningSpawnpoints--;
+        print("Spawnpoint done");
+        print(spawningSpawnpoints.ToString());
+    }
+    
+    private bool checkSpawnsFinished()
+    {
+        if (spawningSpawnpoints == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void initialiseLevel(int levelNumber) 
     {
         enemies = new GameObject[4];
         currentDifficulty = 0;
         int enemyCounter = 0;
+        int spawnpointCounter = 0;
         string[] spawnpointChoords = new string[2];
         string enemyPath = "Assets/Objekte/Enemy/";
         levelInfo = InitController.GetComponent<InitReaderController>().initialiseLevel(levelNumber);
+       
         foreach (string info in levelInfo.Keys)
         {
             enemyPath = "Assets/Objekte/Enemy/";
@@ -308,20 +344,27 @@ public class GameController : MonoBehaviour {
                spawnpointChoords = levelInfo[info].Split(new char[] {','});
                GameObject Spawnpoint = Instantiate(spawnpoint, new Vector2(int.Parse(spawnpointChoords[0]), int.Parse(spawnpointChoords[1])), Quaternion.identity) as GameObject;
                Spawnpoint.GetComponent<SpawnController>().setup(enemies, currentDifficulty);
+               spawnpointCounter++;
+               spawnpoints.Add(spawnpointCounter, Spawnpoint);
             }
             else
             {
                 continue;
             }
         }
+        spawningSpawnpoints = spawnpoints.Count;
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        if(level == 4)
+            initialiseLevel(currentLevel);
     }
 
     public void StartPlanetLevel()
     {
-
-        Application.LoadLevel("Angriff");
-
-        Application.LoadLevel("Defense");
+        Application.LoadLevel("rene_test");
+       // StartCoroutine(initialiseLevel(currentLevel));
     }
     //-------------------------------------
 

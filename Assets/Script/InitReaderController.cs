@@ -9,7 +9,7 @@ using UnityEditor;
 public class InitReaderController : MonoBehaviour
 {
     //Nummer des aktuell betrachteten Level
-    private int levelNumber = 1;
+    private int levelNumber;
 
     //Referenz auf die benötigten Xml-Dokumente
     public TextAsset enemyDoc;
@@ -121,6 +121,7 @@ public class InitReaderController : MonoBehaviour
         Debug.Log("Creating Enemies...");
         Debug.Log("0%\n");
         Object prefab;
+        progress = 0;
         foreach (Dictionary<string, string> enemy in enemyDictionaries)
         {
             progress += 100 / enemyDictionaries.Length;
@@ -242,13 +243,11 @@ public class InitReaderController : MonoBehaviour
         foreach (XmlNode levelNode in levelNodes)
         {
             XmlNodeList nodeContent = levelNode.ChildNodes;
-            print("Contentnodes pro LevelNode: " + nodeContent.Count);
-
             foreach (XmlNode nodeItem in nodeContent)
             {
+                //print(nodeItem.InnerText);
                 if (nodeItem.Name == "Levelnumber")
                     nodeLevelNumber = int.Parse(nodeItem.InnerText);
-
                 if (nodeLevelNumber == levelNumber)
                 {
                     if (nodeItem.Name == "Levelnumber")
@@ -299,22 +298,15 @@ public class InitReaderController : MonoBehaviour
     public Dictionary<string, string> initialiseLevel(int currentLevel)
     {
         this.levelNumber = currentLevel;
+        print("Levelnumber: " + levelNumber.ToString());
         Debug.Log("Initializing...\n");
         loadEnemies();
         createEnemyPreFabs();
 
         return loadLevel();
     }
-
-    // Use this for initialization
     void Start()
     {
-        initialiseLevel(1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        DontDestroyOnLoad(gameObject);
     }
 }

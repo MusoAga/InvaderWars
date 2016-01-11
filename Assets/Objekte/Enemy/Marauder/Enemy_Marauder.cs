@@ -19,7 +19,7 @@ public class Enemy_Marauder : EnemyController_Base
         if (player != null)
         {
             transform.rotation = new Quaternion();
-            transform.Rotate(0, 0, Mathf.Atan2(transform.position.y - player.transform.position.y, transform.position.x - player.transform.position.x) * 180 / Mathf.PI +90);
+            transform.Rotate(0, 0, InvaderWars.getAngleBetweenTwoPoints(transform.position, player.transform.position));
             charge++;
             if (charge > 80)
                 shoot();

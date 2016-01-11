@@ -46,12 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Objekte\Bosses\Ben\WormController.cs" />
      <Compile Include="Assets\Objekte\Bosses\BossController.cs" />
      <Compile Include="Assets\Objekte\Bosses\Rogue\Enemy_Rogue.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Animation\Animation_Skull_Behaviour.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Enemy_Skull.cs" />
      <Compile Include="Assets\Objekte\Bosses\Skull\Laser\LaserBehaviour.cs" />
+     <Compile Include="Assets\Objekte\Bosses\Worm\WormController.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Base.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Defense.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Enemy_Marauder.cs" />
@@ -72,8 +72,8 @@
      <Compile Include="Assets\Objekte\Spawnpoint\SpawnController.cs" />
      <Compile Include="Assets\Script\BGScroller.cs" />
      <Compile Include="Assets\Script\InitReaderController.cs" />
+     <Compile Include="Assets\Script\InvaderWars.cs" />
      <Compile Include="Assets\Script\LevelManager.cs" />
-     <Compile Include="Assets\Script\tets.cs" />
      <None Include="Assets\Text\Enemy.xml" />
      <None Include="Assets\Text\Level.xml" />
  <Reference Include="UnityEngine.UI">
