@@ -9,7 +9,7 @@ public class SpawnController : MonoBehaviour {
     private int currentEnemies = 0;
     private int totalEnemiesSpawned = 0;
     private float timer;
-    private GameObject[] enemies = new GameObject[4];
+    public GameObject[] enemies = new GameObject[4];
     private bool isSpawning = false;
     private GameObject enemy;
     private GameObject GameController;
@@ -87,24 +87,26 @@ public class SpawnController : MonoBehaviour {
                {
                    enemy = enemies[0];
                }
-               else if(rnd > 0.125f && rnd <= 0.4f)
+               else if(rnd > 0.125f && rnd <= 0.7f)
                {
                    enemy = enemies[1];
                }
-               else if(rnd > 0.4f && rnd <= 0.8f)
+               else if(rnd > 0.7f && rnd <= 1.0f)
                {
                    enemy = enemies[2];
                }
+
            }
-           enemy = Instantiate(enemy, gameObject.transform.position, Quaternion.identity) as GameObject;
-           enemy.GetComponent<EnemyController_Base>().setSpawnOrigin(gameObject);
+               enemy = Instantiate(enemy, gameObject.transform.position, Quaternion.identity) as GameObject;
+               enemy.GetComponent<EnemyController_Base>().setSpawnOrigin(gameObject);
+           
         }
         isSpawning = false;
     }
 
     public void spawnBoss()
     {
-        Instantiate(enemies[3], new Vector2(0.0f, 4.5f), Quaternion.identity);
+        Instantiate(enemies[3], new Vector2(0.0f, 3.5f), Quaternion.identity);
     }
 
 

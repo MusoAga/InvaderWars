@@ -139,7 +139,8 @@ public class InitReaderController : MonoBehaviour
             }
             else
             {
-                 prefab = AssetDatabase.LoadAssetAtPath(enemyPath[0] + "/" + enemy["Name"] + ".prefab", typeof(Object));
+                 continue;
+                 //prefab = AssetDatabase.LoadAssetAtPath(enemyPath[0] + "/" + enemy["Name"] + ".prefab", typeof(Object));
             }
             //Erstelle das GameObject, dass als PreFab gespeichert werden soll
 

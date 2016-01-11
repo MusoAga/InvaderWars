@@ -14,7 +14,7 @@
 		<Name>Small_Shooter_Defense</Name>
 		<Type>Shooter</Type>
 		<Shoots>true</Shoots>
-		<Speed>0.02</Speed>
+		<Speed>0.04</Speed>
 		<Lifepoints>1</Lifepoints>
 		<Resources>10</Resources>
 		<Sprite>small_shooter.jpg</Sprite>

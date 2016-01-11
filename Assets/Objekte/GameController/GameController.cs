@@ -263,7 +263,7 @@ public class GameController : MonoBehaviour {
     */
     public void UpdatePlanetInfo(string planetName)
     {
-        if (planetName.Equals("IcePlanet"))
+      /*  if (planetName.Equals("IcePlanet"))
         {
             PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
             PlanetName.text = "Iconom";
@@ -280,6 +280,37 @@ public class GameController : MonoBehaviour {
             PlanetInfo.text = "FEUER!";
             PlanetName.text = "Feuri";
             currentLevel = 3;
+        }*/
+
+        if (planetName.Equals("DroughtPlanet"))
+        {
+            PlanetInfo.text = "Auf diesem Planeten herrscht die Dürre.\nDie Sonne verbrennt dich, \nwenn du keinen Schutz hast!";
+            PlanetName.text = "Zekila";
+            currentLevel = 1;
+        }
+        else if (planetName.CompareTo("IcePlanet") == 0)
+        {
+            PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
+            PlanetName.text = "Iconom";
+            currentLevel = 2;
+        }
+        else if (planetName.CompareTo("StonePlanet") == 0)
+        {
+            PlanetInfo.text = "Stein, Stein und noch mal Stein.\nDich erwarten viele Felsen.\n";
+            PlanetName.text = "Onix";
+            currentLevel = 3;
+        }
+        else if (planetName.CompareTo("RockPlanet") == 0)
+        {
+            PlanetInfo.text = "Riesengroße Felsen bieten\nden Bewohnern guten Schutz.\nWie wirst du vorgehen?";
+            PlanetName.text = "Rocky";
+            currentLevel = 4;
+        }
+        else if (planetName.CompareTo("SteelPlanet") == 0)
+        {
+            PlanetInfo.text = "So hart war dein Gegner noch nie!\nÜberlege gut welche Waffen\ndu verwendest.";
+            PlanetName.text = "Hardness";
+            currentLevel = 5;
         }
 
     }
@@ -310,17 +341,32 @@ public class GameController : MonoBehaviour {
         int enemyCounter = 0;
         int spawnpointCounter = 0;
         string[] spawnpointChoords = new string[2];
-        string enemyPath = "Assets/Objekte/Enemy/";
+        string[] enemyPath = new string[5];
+        enemyPath[1] = "Assets/Objekte/Enemy/Marauder";
+        enemyPath[2] = "Assets/Objekte/Enemy/Minethrower";
+        enemyPath[3] = "Assets/Objekte/Enemy/Poison";
+        enemyPath[4] = "Assets/Objekte/Enemy/Bosses";
         levelInfo = InitController.GetComponent<InitReaderController>().initialiseLevel(levelNumber);
        
         foreach (string info in levelInfo.Keys)
         {
-            enemyPath = "Assets/Objekte/Enemy/";
+            enemyPath[0] = "Assets/Objekte/Enemy";
             if (info.Contains("Enemytype_"))
             {
-                enemyPath = "Assets/Objekte/Enemy/" + levelInfo[info] + ".prefab" ;
-                enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(enemyPath, typeof(Object)) as GameObject;
-                enemyCounter++;
+               /* string[] guid = AssetDatabase.FindAssets(levelInfo[info],enemyPath);
+                if (!string.IsNullOrEmpty(guid[0]))
+                {
+                    print("nicht null");
+                    print(AssetDatabase.GUIDToAssetPath(guid[0]));
+                    enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(guid[0]), typeof(Object)) as GameObject;
+                    enemyCounter++;
+                }
+                else
+                {*/
+                    enemyPath[0] = "Assets/Objekte/Enemy/" + levelInfo[info] + ".prefab" ;
+                    enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(enemyPath[0], typeof(Object)) as GameObject;
+                    enemyCounter++;
+               // }
             }
             else if (info.Equals("Difficulty"))
             {

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyController_Base : MonoBehaviour, Hitable {
 
-    protected float speed = 2; // Flug-Geschwindigkeit 
+    public float speed = 2; // Flug-Geschwindigkeit 
     protected float lifepoints = 1; // Lebenspunkte
     protected int resources; // Anzahl der Ressourcen, die beim Tod abgeworfen werden
     protected float charge; // Aufladung des Schusses
