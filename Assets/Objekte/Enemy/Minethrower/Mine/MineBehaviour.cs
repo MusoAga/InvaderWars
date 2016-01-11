@@ -6,9 +6,11 @@ public class MineBehaviour : MonoBehaviour, Hitable {
 
     float timer;
 
-    public void OnCollisionEnter2D(Collision2D coll)
+    public void OnTriggerEnter2D(Collider2D coll)
     {
         onDestruction();
+        if (coll.gameObject.GetComponent<Hitable>() != null)
+            coll.gameObject.GetComponent<Hitable>().dealDamage(2);
     }
 
     public void onHit()
@@ -38,5 +40,10 @@ public class MineBehaviour : MonoBehaviour, Hitable {
     {
         Explosion.explode(gameObject);
         Destroy(gameObject);
+    }
+
+    public void dealDamage(int damage)
+    {
+        onDestruction();
     }
 }

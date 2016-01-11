@@ -54,6 +54,8 @@
      <Compile Include="Assets\Objekte\Enemy\Bosses\Worm\WormController.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Base.cs" />
      <Compile Include="Assets\Objekte\Enemy\EnemyController_Defense.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Flamethrower\Enemy_Flamethrower.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Flamethrower\Flameshot\Flameshot_Behaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Enemy_Marauder.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Rocket\RocketBehaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\Minethrower\Enemy_MineThrower.cs" />

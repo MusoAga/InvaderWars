@@ -32,11 +32,15 @@ public class PlayerController_Base : MonoBehaviour, Hitable
 
     public virtual void shoot()
     {
+        // Feueraufladung wieder zurücksetzen
         currentFireCharge = fireRate;
+        // Schuss erstellen
        GameObject firedShot = (GameObject) Instantiate(shot, transform.position+this.transform.up/2, transform.rotation);
         if (firedShot.GetComponent<Rigidbody2D>() != null)
             firedShot.GetComponent<Rigidbody2D>().AddForce(this.transform.up*300);
         GetComponent<AudioSource>().PlayOneShot(shootSound);
+        // Den Besitzer des Schusses zuweisen
+        firedShot.GetComponent<ShotBehaviour>().shoot(gameObject);
     }
 
     // Spieler stirbt
@@ -54,17 +58,17 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         if (GetComponent<Rigidbody2D>() != null)
             GetComponent<Rigidbody2D>().AddForce(direction * speed);
     }
-    
-    public void OnCollisionEnter2D(Collision2D coll)
-    {
-        onHit();
-        if (coll.gameObject.GetComponent<Hitable>() != null)
-            coll.gameObject.GetComponent<Hitable>().onHit();
-    }
 
     public void onHit()
     {
         lifePoints = -1;
+        // Keine lifepoints mehr vorhanden ? Spieler stirbt
+        if (lifePoints <= 0) onDestruction();
+    }
+
+    public void dealDamage(int damage)
+    {
+        lifePoints -= damage;
         // Keine lifepoints mehr vorhanden ? Spieler stirbt
         if (lifePoints <= 0) onDestruction();
     }

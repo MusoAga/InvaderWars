@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 using System;
 
@@ -48,4 +48,4 @@ public class WormController : MonoBehaviour, Hitable
     public void OnCollisionEnter2D(Collision2D coll)
     {
     }
-}
+}*/

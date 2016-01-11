@@ -9,7 +9,7 @@ public class GameController_Def : GameController {
     
 
     /** Timer, der die verbleibende Spielzeit für das Level repräsentiert */
-    private int levelTimer = 10000;
+    //private int levelTimer = 10000;
 
     // Use this for initialization
     void Start () {

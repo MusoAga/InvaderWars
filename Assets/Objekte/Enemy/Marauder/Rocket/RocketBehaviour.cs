@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class RocketBehaviour : MonoBehaviour
+public class RocketBehaviour : ShotBehaviour, Hitable
 {
 
     bool stopChasing = false;
-    float timer;
 
     // Use this for initialization
     void Start()
@@ -14,16 +14,7 @@ public class RocketBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        timer++;
-        if (timer > 100)
-        {
-            Explosion.explode(gameObject);
-            Destroy(gameObject);
-            return;
-        }
-
+   public override void shotBehaviour() {
         if (!stopChasing)
         {
             PlayerController_Base player = FindObjectOfType<PlayerController_Base>();
@@ -44,8 +35,23 @@ public class RocketBehaviour : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.GetComponent<Hitable>() != null)
-            coll.gameObject.GetComponent<Hitable>().onHit();
-        Explosion.explode(gameObject);
-        Destroy(gameObject);
+            coll.gameObject.GetComponent<Hitable>().dealDamage(damage);
+        onDestruction();
+    }
+
+    public override void onDestruction()
+    {
+      Explosion.explode(gameObject);
+      Destroy(gameObject);
+    }
+
+    public void onHit()
+    {
+        onDestruction();
+    }
+
+    public void dealDamage(int damage)
+    {
+        onDestruction();
     }
 }
