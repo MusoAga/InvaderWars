@@ -1,10 +1,20 @@
 fileFormatVersion: 2
 guid: dc8e63ac85d250145af168ddff70ddf9
-timeCreated: 1449543084
+timeCreated: 1452542816
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player: {fileID: 122966, guid: 2250293a65aefd944b50bf42a3b2c6e9, type: 2}
+  - pauseMenu: {fileID: 129658, guid: f443abd177b8f94419b1ac5a716191f2, type: 2}
+  - winMenu: {fileID: 103662, guid: 59f5fc6008cad61489b4e28ee55fd6ba, type: 2}
+  - loseMenu: {fileID: 111974, guid: 8663e74c2f85a3c46a2124857ac7140d, type: 2}
+  - collectedRessourcesValueText: {instanceID: 0}
+  - totalRessourcesValueText: {instanceID: 0}
+  - PlanetInfo: {instanceID: 0}
+  - PlanetName: {instanceID: 0}
+  - InitController: {fileID: 104652, guid: a4116fa2fc8d99943afd98a2eba4731e, type: 2}
+  - spawnpoint: {fileID: 162520, guid: 1ed3f79783420c648bd8a7d1bd49e3c6, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
