@@ -23,7 +23,7 @@ public class Enemy_Rogue : BossController, Hitable
         energySlider.maxValue = teleportEnergy;
         energySlider.minValue = 0;
 
-        lifepoints = 5;
+        lifepoints = 1;
         bossHealthBar.maxValue = lifepoints;
         bossHealthBar.minValue = 0;
     }

@@ -11,11 +11,9 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     public GameObject shot;
     public AudioClip shootSound;
 
-
     // Use this for initialization
     void Start () {
-	
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -74,8 +72,9 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
 
     }
 
-    void onDestruction()
+    public virtual void onDestruction()
     {
+        FindObjectOfType<GameController>().addResources(10);
         Explosion.explode(this.gameObject);
         Destroy(this.gameObject);
         spawnOrigin.GetComponent<SpawnController>().enemyDied();
