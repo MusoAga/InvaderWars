@@ -40,6 +40,7 @@ public class Enemy_Rogue : BossController, Hitable
             }
             else
             {
+                GetComponent<Animator>().Play("Cryo_Exhausted");
                 StartCoroutine(LoadEnergy());
             }
         }
@@ -69,7 +70,8 @@ public class Enemy_Rogue : BossController, Hitable
         charge++;
         teleportIntervall++;
 
-        if (teleportIntervall > 25)
+        transform.position = new Vector3(transform.position.x, transform.position.y + Mathf.Sin(Time.frameCount / 10) / 100, transform.position.z);
+        if (teleportIntervall > 55)
         {
             UpdateTeleportPoint();
             transform.position = teleportPoint;
@@ -81,13 +83,27 @@ public class Enemy_Rogue : BossController, Hitable
             UpdateTeleportPoint();
             transform.position = teleportPoint;
             shoot();
+            GetComponent<Animator>().Play("Cryo_Shoot");
         }
+    }
+
+
+    // Feuere Schüsse ab
+    public override void shoot()
+    {
+        // Sound abspielen
+        charge = 0;
+        GetComponent<AudioSource>().PlayOneShot(shootSound);
+        GameObject fire = (GameObject)Instantiate(shot, transform.localPosition + transform.up / 2, transform.localRotation);
+        fire.GetComponent<ShotBehaviour>().shoot(gameObject);
     }
 
     IEnumerator LoadEnergy()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         teleportEnergy = 450;
         energySlider.value = teleportEnergy;
+        GetComponent<Animator>().Play("Cryo_Idle");
     }
+    
 }
