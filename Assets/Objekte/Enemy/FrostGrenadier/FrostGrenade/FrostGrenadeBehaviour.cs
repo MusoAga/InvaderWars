@@ -7,7 +7,7 @@ public class FrostGrenadeBehaviour : ShotBehaviour {
 
     public override void shotBehaviour()
     {
-
+        transform.Rotate(new Vector3(0, 0, 3));
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -21,7 +21,6 @@ public class FrostGrenadeBehaviour : ShotBehaviour {
 
     public override void onDestruction()
     {
-        Explosion.explode(gameObject);
         Instantiate(frost, transform.position, transform.rotation);
         Destroy(gameObject);
     }

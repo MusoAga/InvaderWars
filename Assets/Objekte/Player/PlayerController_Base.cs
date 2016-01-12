@@ -5,7 +5,7 @@ using System;
 public class PlayerController_Base : MonoBehaviour, Hitable
 {	
     
-	protected float speed = 10; // Bewegungsgeschwindigkeit des Spielers
+	public float speed = 1; // Bewegungsgeschwindigkeit des Spielers
     protected float fireRate = 20; // Schussrate
 	protected float currentFireCharge;
     protected int lifePoints = 1; // Lebenspunkte

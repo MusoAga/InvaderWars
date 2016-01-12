@@ -21,7 +21,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
         if(!FindObjectOfType<GameController>().isPaused())
             enemyBehaviour();
         // Sobald ein Gegner das Ende des Bildschirms erreicht hat, wird er entfernt
-        if (transform.position.y < -10)
+        if (transform.position.y < -5)
         {
             Destroy(gameObject);
             spawnOrigin.GetComponent<SpawnController>().enemyDied();

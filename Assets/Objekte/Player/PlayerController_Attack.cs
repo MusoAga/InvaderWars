@@ -21,8 +21,7 @@ public class PlayerController_Attack : PlayerController_Base {
         if (forward != 0 || sideward != 0)
         {
             Vector3 direction = this.transform.right * sideward + this.transform.up * forward;
-            if (gameObject.GetComponent<Effect_Stun>() != null)
-                direction /= 8;
+            direction *= speed;
             moveInDirection(direction);
         }
 

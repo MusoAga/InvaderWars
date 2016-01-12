@@ -21,6 +21,7 @@ public class FrostBehaviour : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.GetComponent<PlayerController_Base>() != null)
-            coll.gameObject.AddComponent<Effect_Stun>();
+            if (coll.gameObject.GetComponent<Effect_Slow>() == null)
+            coll.gameObject.AddComponent<Effect_Slow>();
     }
 }

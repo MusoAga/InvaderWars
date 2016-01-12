@@ -11,12 +11,13 @@ public class Enemy_FrostGrenadier : EnemyController_Base {
     void dropGrenade()
     {
         charge = 0;
-        for (int i = 0; i < 6; i++)
+        GetComponent<Animator>().Play("FrostGrenadier_Shoot");
+        for (int i = 0; i < 3; i++)
         {
             GameObject grenade = Instantiate(shot);
             grenade.transform.position = transform.position;
             grenade.GetComponent<ShotBehaviour>().shoot(gameObject);
-            grenade.GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Sin(i)*50, Mathf.Cos(i) * 50));
+            grenade.GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Sin(i*2)*50, Mathf.Cos(i*2) * 50));
             GetComponent<AudioSource>().PlayOneShot(shootSound);
         }
     }
@@ -27,7 +28,7 @@ public class Enemy_FrostGrenadier : EnemyController_Base {
     {
         base.enemyBehaviour();
         charge++;
-        if (charge >= 150)
+        if (charge >= 250)
             dropGrenade();
     }
 
