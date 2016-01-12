@@ -7,6 +7,9 @@ public class LevelManager : MonoBehaviour {
 
     public Transform mainMenu, optionsMenu;
 
+    public Text PlanetInfo;
+    public Text PlanetName;
+
     public void StartGame(string name)
     {
         Application.LoadLevel(name);
@@ -33,5 +36,36 @@ public class LevelManager : MonoBehaviour {
             optionsMenu.gameObject.SetActive(clicked);
             mainMenu.gameObject.SetActive(true);
         }
+    }
+
+    /*
+    FÜR DIE PLANETENÜBERSICHT!
+    */
+    public void UpdatePlanetInfo(string planetName)
+    {
+        if (planetName.Equals("IcePlanet"))
+        {
+            PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
+            PlanetName.text = "Iconom";
+            FindObjectOfType<GameController>().setCurrentLevel(1);
+        }
+        else if (planetName.Equals("SwampPlanet"))
+        {
+            PlanetInfo.text = "Gift";
+            PlanetName.text = "Gifti";
+            FindObjectOfType<GameController>().setCurrentLevel(2);
+        }
+        else if (planetName.Equals("VolcanoPlanet"))
+        {
+            PlanetInfo.text = "FEUER!";
+            PlanetName.text = "Feuri";
+            FindObjectOfType<GameController>().setCurrentLevel(3);
+        }
+
+    }
+
+    public void StartPlanetLevel()
+    {
+        FindObjectOfType<GameController>().StartPlanetLevel();
     }
 }

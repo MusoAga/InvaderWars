@@ -10,14 +10,6 @@ public class GameController : MonoBehaviour {
     private int currentLevel;
     private int currentDifficulty;
 
-    /** List mit allen SpawnPoints des aktuellen Levels. */
-    //private List<SpawnPoints> spawnPoints;
-
-    /** Referenz auf das aktuelle Spielerobjekt */
-
-    //private GameObject player;
-    public GameObject player;
-
     public GameObject pauseMenu, winMenu, loseMenu;
 
     public Text collectedRessourcesValueText = null;
@@ -34,10 +26,6 @@ public class GameController : MonoBehaviour {
     private bool playerWin = false;
     private bool pause = false;
 
-
-    public Text PlanetInfo;
-    public Text PlanetName;
-
     //Referenz auf den InitController des Levels
     public GameObject InitController;
     public GameObject spawnpoint;
@@ -46,13 +34,13 @@ public class GameController : MonoBehaviour {
     private SortedList<int, GameObject> spawnpoints = new SortedList<int, GameObject>();
     private int spawningSpawnpoints = 99;
     private bool bossSpawned = false;
+    private bool gameCreated = false;
 
+    // Static singleton property
+    public static GameController Instance { get; private set; }
 
     // Use this for initialization
     void Start () {
-
-        //player = GetComponent<PlayerController_Base>();
-
 
         //make sure menus are disabled
         pauseMenu.SetActive(false);
@@ -60,7 +48,7 @@ public class GameController : MonoBehaviour {
         loseMenu.SetActive(false);
 
         Time.timeScale = 1;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
     }
 	
@@ -81,6 +69,26 @@ public class GameController : MonoBehaviour {
         
     }
 
+    /*
+    Wird vor der Start Funktion aufgerufen. Wird aufgerufen nachdem alle Objekte initialisiert sind.
+    In diesem Fall wird sicher gegangen, dass es nicht 2 GameController in einem Level existieren
+    */
+    void Awake()
+    {
+        // Überprüfen ob es einen Konflikt gibt zwischen einen anderen GameController
+        if (Instance != null && Instance != this)
+        {
+            // Falls ja, zerstöre ihn
+            Destroy(gameObject);
+        }
+
+        // Setze die Singleton
+        Instance = this;
+
+        // Das Objekt nicht zerstören wenn man zwischen den Scenen navigiert
+        DontDestroyOnLoad(gameObject);
+    }
+
     /**
     Methode um überall auf dem Screen zu zeichnen.
     Wird in jedem Frame aufgerufen.
@@ -88,26 +96,6 @@ public class GameController : MonoBehaviour {
     void OnGUI()
     {
         GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + collectedResources.ToString());
-
-    }
-
-    /**
-    Fügt der spawnPoints Liste einen weiteren SpawnPoint anhand der List hinzu.
-    */
-    public void addSpawnPoint(List<string> fileInput)
-    {
-        /*foreach (string entry in fileInput)
-        {
-            //spawnPoints.Add(entry);
-        }*/
-    }
-
-    /**
-    Erzeugt die SpawnPoints des Levels anhand der ArrayList spawnPoints.
-    */
-    public void createSpawnPoint(int x, int y, GameObject[] enemies)
-    {
-
     }
 
     /**
@@ -241,6 +229,7 @@ public class GameController : MonoBehaviour {
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
         pause = false;
+        Time.timeScale = 1;
     }
 
     public void resumeLevel()
@@ -270,33 +259,6 @@ public class GameController : MonoBehaviour {
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
         pause = false;
-    }
-
-
-    /*
-    FÜR DIE PLANETENÜBERSICHT!
-    */
-    public void UpdatePlanetInfo(string planetName)
-    {
-       if (planetName.Equals("IcePlanet"))
-        {
-            PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
-            PlanetName.text = "Iconom";
-            currentLevel = 1;
-        }
-        else if (planetName.Equals("SwampPlanet"))
-        {
-            PlanetInfo.text = "Gift";
-            PlanetName.text = "Gifti";
-            currentLevel = 2;
-        }
-        else if (planetName.Equals("VolcanoPlanet"))
-        {
-            PlanetInfo.text = "FEUER!";
-            PlanetName.text = "Feuri";
-            currentLevel = 3;
-        }
-
     }
 
     public void spawnFinished()
@@ -363,7 +325,11 @@ public class GameController : MonoBehaviour {
                GameObject Spawnpoint = Instantiate(spawnpoint, new Vector2(int.Parse(spawnpointChoords[0]), int.Parse(spawnpointChoords[1])), Quaternion.identity) as GameObject;
                Spawnpoint.GetComponent<SpawnController>().setup(enemies, currentDifficulty);
                spawnpointCounter++;
-               spawnpoints.Add(spawnpointCounter, Spawnpoint);
+                if(!gameCreated)
+                {
+                    spawnpoints.Add(spawnpointCounter, Spawnpoint);
+                    gameCreated = true;
+                }
             }
             else
             {
@@ -382,8 +348,7 @@ public class GameController : MonoBehaviour {
     public void StartPlanetLevel()
     {
         Application.LoadLevel("rene_test");
-       // StartCoroutine(initialiseLevel(currentLevel));
+        Time.timeScale = 1;
     }
-    //-------------------------------------
 
 }
