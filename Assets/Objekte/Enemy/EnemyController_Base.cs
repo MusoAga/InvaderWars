@@ -98,7 +98,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     }
 
     // Füge Schaden zu
-    public void dealDamage(int damage)
+    public virtual void dealDamage(int damage)
     {
         lifepoints--;
         if (lifepoints <= 0)
