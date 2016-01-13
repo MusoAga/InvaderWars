@@ -6,6 +6,7 @@ public class Enemy_MineThrower : EnemyController_Base {
     void Start()
     {
         lifepoints = 3;
+        resources = 25;
     }
 
     void dropMine()

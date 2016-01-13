@@ -5,8 +5,8 @@ using System;
 public class EnemyController_Base : MonoBehaviour, Hitable {
 
     public float speed = 2; // Flug-Geschwindigkeit 
-    protected float lifepoints = 1; // Lebenspunkte
-    protected int resources; // Anzahl der Ressourcen, die beim Tod abgeworfen werden
+    public float lifepoints = 1; // Lebenspunkte
+    public int resources = 10; // Anzahl der Ressourcen, die beim Tod abgeworfen werden
     protected float charge; // Aufladung des Schusses
     GameObject spawnOrigin = null;
     public GameObject shot;
@@ -38,10 +38,12 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
         this.speed = _speed;
         this.lifepoints = _lifePoints;
         this.resources = _resources;
+        print("Resources: " + resources.ToString() + "\n_Resources: " + _resources.ToString());
     }
 
     public virtual void enemyBehaviour()
     {
+       // moveInDirection(new Vector2(0,-1));
         moveInDirection(transform.up);
     }
 
@@ -76,10 +78,11 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
 
     public virtual void onDestruction()
     {
-        FindObjectOfType<GameController>().addResources(10);
+        FindObjectOfType<GameController>().addResources(this.resources);
         Explosion.explode(this.gameObject);
         Destroy(gameObject);
-        //spawnOrigin.GetComponent<SpawnController>().enemyDied();
+        if(!(this is BossController))
+        spawnOrigin.GetComponent<SpawnController>().enemyDied();
     }
 
     // Der Gegner wird getroffen

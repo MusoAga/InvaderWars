@@ -8,6 +8,7 @@ public class Enemy_Flamethrower : EnemyController_Base {
 	// Use this for initialization
 	void Start () {
         direction = transform.up;
+        resources = 30;
 	}
 
     // Feuere Schüsse ab

@@ -10,6 +10,7 @@ public class Enemy_Marauder : EnemyController_Base
     {
         targetPoint = new Vector2(Random.Range(0, 2), Random.Range(0, 2));
         //Instantiate(shot).transform.position = targetPoint;
+        resources = 30;
     }
 
     public override void enemyBehaviour()

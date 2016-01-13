@@ -14,11 +14,11 @@ Description:
 
 <Levels>
 	<Level>
-		<Levelnumber>1</Levelnumber>
+		<Levelnumber>4</Levelnumber>
 		<Mode>attack</Mode>
 		<Difficulty>2</Difficulty>
 		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
-		<Enemytype_2>PoisonShip</Enemytype_2>
+		<Enemytype_2>FrostGrenadier</Enemytype_2>
 		<Enemytype_3>Marauder</Enemytype_3>
 		<Enemytype_4>Skull</Enemytype_4>
 		
@@ -45,9 +45,9 @@ Description:
 		<Mode>attack</Mode>
 		<Difficulty>3</Difficulty>
 		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
-		<Enemytype_2>Medium_Shooter_Defense</Enemytype_2>
-		<Enemytype_3>Small_Meteoroid_Defense</Enemytype_3>
-		<Enemytype_4>Small_Meteoroid_Defense</Enemytype_4>
+		<Enemytype_2>PoisonShip</Enemytype_2>
+		<Enemytype_3>Minethrower</Enemytype_3>
+		<Enemytype_4>Skull</Enemytype_4>
 		
 		<Spawnpoint>
 			<Spawnpoint_x>4</Spawnpoint_x>
@@ -63,9 +63,55 @@ Description:
 			<Spawnpoint_x>0</Spawnpoint_x>
 			<Spawnpoint_y>3</Spawnpoint_y>
 		</Spawnpoint>
-		
-		
 	</Level>
 
+  <Level>
+    <Levelnumber>3</Levelnumber>
+    <Mode>attack</Mode>
+    <Difficulty>4</Difficulty>
+    <Enemytype_1>Minethrower</Enemytype_1>
+    <Enemytype_2>Flamethrower</Enemytype_2>
+    <Enemytype_3>Small_Shooter_Defense</Enemytype_3>
+    <Enemytype_4>Skull</Enemytype_4>
 
-</Levels>
+    <Spawnpoint>
+      <Spawnpoint_x>2</Spawnpoint_x>
+      <Spawnpoint_y>3</Spawnpoint_y>
+    </Spawnpoint>
+
+    <Spawnpoint>
+      <Spawnpoint_x>-4</Spawnpoint_x>
+      <Spawnpoint_y>3</Spawnpoint_y>
+    </Spawnpoint>
+
+    <Spawnpoint>
+      <Spawnpoint_x>1</Spawnpoint_x>
+      <Spawnpoint_y>3</Spawnpoint_y>
+    </Spawnpoint>
+  </Level>
+
+    <Level>
+      <Levelnumber>1</Levelnumber>
+      <Mode>attack</Mode>
+      <Difficulty>1</Difficulty>
+      <Enemytype_1>Small_Shooter_Defense</Enemytype_1>
+      <Enemytype_2>Small_Shooter_Defense</Enemytype_2>
+      <Enemytype_3>Small_Shooter_Defense</Enemytype_3>
+      <Enemytype_4>Skull</Enemytype_4>
+
+      <Spawnpoint>
+        <Spawnpoint_x>3</Spawnpoint_x>
+        <Spawnpoint_y>3</Spawnpoint_y>
+      </Spawnpoint>
+
+      <Spawnpoint>
+        <Spawnpoint_x>-3</Spawnpoint_x>
+        <Spawnpoint_y>3</Spawnpoint_y>
+      </Spawnpoint>
+
+      <Spawnpoint>
+        <Spawnpoint_x>0</Spawnpoint_x>
+        <Spawnpoint_y>3</Spawnpoint_y>
+      </Spawnpoint>
+    </Level>
+  </Levels>

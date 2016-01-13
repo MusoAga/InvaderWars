@@ -34,7 +34,7 @@ public class SpawnController : MonoBehaviour {
             case 3:
                 this.maxEnemies = 5;
                 this.timer = 2.5f;
-                maxEnemiesSpawned = 2;
+                maxEnemiesSpawned = 20;
                 break;
             case 4:
                 this.maxEnemies = 6;
@@ -68,10 +68,12 @@ public class SpawnController : MonoBehaviour {
            currentEnemies++;
            if(totalEnemiesSpawned <= 4)
            {
+               print("Spawnphase 1");
               enemy = enemies[0];
            }
-           else if(totalEnemiesSpawned > 4 && totalEnemiesSpawned <= 6)
+           else if(totalEnemiesSpawned > 4 & totalEnemiesSpawned <= 6)
            {
+               print("Spawnphase 2");
                if(rnd >= 0.51f)
                {
                    enemy = enemies[0];
@@ -83,37 +85,44 @@ public class SpawnController : MonoBehaviour {
           }
           else if(totalEnemiesSpawned > 6)
           {
+              print("Spawnphase 3");
                if(rnd <= 0.125f)
                {
                    enemy = enemies[0];
                }
-               else if(rnd > 0.125f && rnd <= 0.7f)
+               else if(rnd > 0.125f & rnd <= 0.7f)
                {
                    enemy = enemies[1];
                }
-               else if(rnd > 0.7f && rnd <= 1.0f)
+               else if(rnd > 0.7f & rnd <= 1.0f)
                {
                    enemy = enemies[2];
                }
-
            }
-               enemy = Instantiate(enemy, gameObject.transform.position, Quaternion.identity) as GameObject;
+               enemy = Instantiate(enemy, gameObject.transform.position, enemy.transform.rotation) as GameObject;
                enemy.GetComponent<EnemyController_Base>().setSpawnOrigin(gameObject);
-           
         }
         isSpawning = false;
     }
 
     public void spawnBoss()
     {
-        Instantiate(enemies[3], new Vector2(0.0f, 3.5f), Quaternion.identity);
+        Instantiate(enemies[3], new Vector2(0.0f, 3.5f), enemy.transform.rotation);
+        //StartCoroutine(instantiateBoss());
     }
 
+    private IEnumerator instantiateBoss()
+    {
+        yield return new WaitForSeconds(2.0f);
+        
+
+    }
 
     public void enemyDied() 
     {
         if(currentEnemies > 0)
         currentEnemies--;
+        print(currentEnemies.ToString());
     }
 
     private void ausgabe() 
@@ -137,6 +146,7 @@ public class SpawnController : MonoBehaviour {
         }
         if (totalEnemiesSpawned >= maxEnemiesSpawned && !finished)
         {
+            print("Habe fertig");
             GameController.GetComponent<GameController>().spawnFinished();
             finished = true;
         }

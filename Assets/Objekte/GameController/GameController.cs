@@ -26,13 +26,18 @@ public class GameController : MonoBehaviour {
     private bool playerWin = false;
     private bool pause = false;
 
-    //Referenz auf den InitController des Levels
+    //Referenzen auf die Spawning- bzw. Initialisierungskomponenten
     public GameObject InitController;
     public GameObject spawnpoint;
+    //Variable für die Übernahme der vom InitReader ausgelesenen Levelinfos
     private Dictionary<string, string> levelInfo;
+    //Variable mit den Gegnertypen
     private GameObject[] enemies;
+    //Variable zum speichern der Spawnpoints
     private SortedList<int, GameObject> spawnpoints = new SortedList<int, GameObject>();
+    //Anzahl der noch aktiven Spawnpoints; 99 ist der Initialwert
     private int spawningSpawnpoints = 99;
+    //Bool zur Feststellung, ob der Boss gespawnt wurde
     private bool bossSpawned = false;
     private bool gameCreated = false;
 
@@ -48,6 +53,7 @@ public class GameController : MonoBehaviour {
         loseMenu.SetActive(false);
 
         Time.timeScale = 1;
+        print("Spawnpoints: " + spawningSpawnpoints.ToString());
         //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
     }
@@ -343,6 +349,7 @@ public class GameController : MonoBehaviour {
     {
         if(level == 4)
             initialiseLevel(currentLevel);
+        print(spawningSpawnpoints.ToString());
     }
 
     public void StartPlanetLevel()

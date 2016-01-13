@@ -93,9 +93,10 @@ public class Enemy_Skull : BossController
     }
 
 
-    public void onDestroy()
+    public override void onDestruction()
     {
         Explosion.explode(gameObject, 3);
         Destroy(gameObject);
+        base.onDestruction();
     }
 }

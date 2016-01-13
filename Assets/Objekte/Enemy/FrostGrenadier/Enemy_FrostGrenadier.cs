@@ -6,6 +6,7 @@ public class Enemy_FrostGrenadier : EnemyController_Base {
 	// Use this for initialization
 	void Start () {
         lifepoints = 3;
+        resources = 45;
 	}
 
     void dropGrenade()

@@ -26,7 +26,7 @@ public class Animation_Skull_Behaviour : StateMachineBehaviour {
 
 
         if (stateInfo.IsName("Skull_Break"))
-            animator.GetComponent<Enemy_Skull>().onDestroy();
+            animator.GetComponent<Enemy_Skull>().onDestruction();
     }
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

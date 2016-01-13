@@ -16,7 +16,7 @@
 		<Shoots>true</Shoots>
 		<Speed>0.04</Speed>
 		<Lifepoints>1</Lifepoints>
-		<Resources>10</Resources>
+		<Resources>8</Resources>
 		<Sprite>small_shooter.jpg</Sprite>
 		<Collidersize>0.5</Collidersize>
 	</Enemy> <!-- XmlNode -->
