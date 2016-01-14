@@ -34,4 +34,9 @@ public class MusicController : MonoBehaviour {
     {
         audioSource.Play();
     }
+
+    public void onValueChanged(float volume)
+    {
+        audioSource.volume = volume;
+    }
 }
