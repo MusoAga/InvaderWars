@@ -50,6 +50,7 @@
      <Compile Include="Assets\Objekte\Enemy\Bosses\BossController.cs" />
      <Compile Include="Assets\Objekte\Enemy\Bosses\Cryo\Enemy_Rogue.cs" />
      <Compile Include="Assets\Objekte\Enemy\Bosses\Cryo\Frostbolt\FrostboltBehaviour.cs" />
+     <Compile Include="Assets\Objekte\Enemy\Bosses\Pyro\Enemy_Pyro.cs" />
      <Compile Include="Assets\Objekte\Enemy\Bosses\Skull\Animation\Animation_Skull_Behaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\Bosses\Skull\Enemy_Skull.cs" />
      <Compile Include="Assets\Objekte\Enemy\Bosses\Skull\Laser\LaserBehaviour.cs" />
