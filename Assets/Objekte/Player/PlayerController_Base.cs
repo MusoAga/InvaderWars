@@ -8,7 +8,7 @@ public class PlayerController_Base : MonoBehaviour, Hitable
 	public float speed = 1; // Bewegungsgeschwindigkeit des Spielers
     protected float fireRate = 20; // Schussrate
 	protected float currentFireCharge;
-    protected int lifePoints = 1; // Lebenspunkte
+    protected int lifePoints = 10; // Lebenspunkte
     
     public GameObject shot; // GameObjects, um Schüsse und Explosionen zu initialisieren
     public AudioClip shootSound; // Abgespielter Sound beim Schießen
@@ -61,13 +61,12 @@ public class PlayerController_Base : MonoBehaviour, Hitable
 
     public void onHit()
     {
-        lifePoints = -1;
-        // Keine lifepoints mehr vorhanden ? Spieler stirbt
-        if (lifePoints <= 0) onDestruction();
     }
 
     public void dealDamage(int damage)
     {
+        if (GetComponent<Effect_Damaged>() != null) return;
+        gameObject.AddComponent<Effect_Damaged>();
         lifePoints -= damage;
         // Keine lifepoints mehr vorhanden ? Spieler stirbt
         if (lifePoints <= 0) onDestruction();

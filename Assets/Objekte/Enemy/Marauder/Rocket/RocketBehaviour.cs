@@ -31,8 +31,8 @@ public class RocketBehaviour : ShotBehaviour, Hitable
         else
             GetComponent<Rigidbody2D>().velocity = transform.up*4;
     }
-
-    void OnCollisionEnter2D(Collision2D coll)
+    
+    void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.GetComponent<Hitable>() != null)
             coll.gameObject.GetComponent<Hitable>().dealDamage(damage);
