@@ -6,12 +6,20 @@ public class PlayerController_Base : MonoBehaviour, Hitable
 {	
     
 	public float speed = 1; // Bewegungsgeschwindigkeit des Spielers
-    protected float fireRate = 20; // Schussrate
+    public float fireRate = 20; // Schussrate
 	protected float currentFireCharge;
-    protected int lifePoints = 10; // Lebenspunkte
+    public int lifePoints = 10; // Lebenspunkte
+    public float fireRatestep;
+    public float speedStep;
+    public int frostResistence = 0;
     
-    public GameObject shot; // GameObjects, um Schüsse und Explosionen zu initialisieren
+    public GameObject shot; // GameObjects, um Schüsse und Explosionen zu initialisieren. Enthält den aktuellen Schuss des Spielers
+    public GameObject defaultShot;
+    public GameObject laserShot;
+
     public AudioClip shootSound; // Abgespielter Sound beim Schießen
+    public AudioClip shootSound_Bullet;
+    public AudioClip shootSound_Laser;
 
     public virtual void Start()
     {
@@ -28,6 +36,21 @@ public class PlayerController_Base : MonoBehaviour, Hitable
             if (currentFireCharge <= 0) shoot();
         }
         else currentFireCharge = fireRate;
+    }
+
+    public void resetPlayerStats()
+    {
+        this.shot = defaultShot;
+        this.shootSound = shootSound_Bullet;
+        this.lifePoints = 3;
+        this.speed = 1;
+        this.fireRate = 20;
+
+    }
+
+    public int getFrostResistence()
+    {
+        return this.frostResistence;
     }
 
     public virtual void shoot()
@@ -72,8 +95,40 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         if (lifePoints <= 0) onDestruction();
     }
 
-    //void onPickup(GameObject powerup) { }
+    public void increaseFireRate()
+    {
+        fireRate -= fireRatestep;
+    }
 
-    /* TODO FileReader
-	void initialiseStats(ArrayList fileInput) {   }*/
+    public void increaseLifePoints()
+    {
+        lifePoints++;
+    }
+
+    public void changeShot(string shotType)
+    {
+
+        if (shotType.Contains("Laser"))
+        {
+            this.shot = laserShot;
+            this.shootSound = shootSound_Laser;
+        }
+        else
+        {
+            this.shot = defaultShot;
+            this.shootSound = shootSound_Bullet;
+        }
+    }
+
+    public void increaseSpeed()
+    {
+        this.speed += speedStep;
+    }
+
+    public void increaseFrostResistence()
+    {
+        this.frostResistence++;
+    }
+
+
 }

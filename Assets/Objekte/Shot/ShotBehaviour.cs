@@ -15,6 +15,11 @@ public class ShotBehaviour : MonoBehaviour {
         owner = newOwner;
     }
 
+    public GameObject getOwner()
+    {
+        return this.owner;
+    }
+
 	// Update is called once per frame
 	protected void Update () {
         lifetime++;

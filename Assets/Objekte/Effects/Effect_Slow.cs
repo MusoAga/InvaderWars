@@ -13,7 +13,24 @@ public class Effect_Slow : MonoBehaviour
         target = GetComponent<PlayerController_Base>();
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
         target.GetComponent<Rigidbody2D>().velocity /= 2;
-        target.speed /= 4;
+        if (target.getFrostResistence() == 0)
+        {
+            target.speed /= 4;
+        }
+        else if(target.getFrostResistence() == 1)
+        {
+            target.speed /= 3;
+        }
+        else if (target.getFrostResistence() == 2)
+        {
+            target.speed /= 2;
+        }
+        else if (target.getFrostResistence() == 3)
+        {
+            target.speed /= 1.5f;
+        }
+
+
     }
 
     // Update is called once per frame
@@ -24,7 +41,22 @@ public class Effect_Slow : MonoBehaviour
         {
             Destroy(this);
             gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            target.speed *= 4;
+            if (target.getFrostResistence() == 0)
+            {
+                target.speed *= 4;
+            }
+            else if (target.getFrostResistence() == 1)
+            {
+                target.speed *= 3;
+            }
+            else if (target.getFrostResistence() == 2)
+            {
+                target.speed *= 2;
+            }
+            else if (target.getFrostResistence() == 3)
+            {
+                target.speed *= 1.5f;
+            }
         }
     }
 }

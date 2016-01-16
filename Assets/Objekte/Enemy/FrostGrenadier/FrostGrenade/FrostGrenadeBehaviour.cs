@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FrostGrenadeBehaviour : ShotBehaviour {
+public class FrostGrenadeBehaviour : ShotBehaviour, Hitable {
 
     public GameObject frost;
 
@@ -25,4 +25,15 @@ public class FrostGrenadeBehaviour : ShotBehaviour {
         Destroy(gameObject);
     }
 
+    public void onHit()
+    {
+        Explosion.explode(gameObject);
+        Destroy(gameObject);
+    }
+
+    public void dealDamage(int damage)
+    {
+        Explosion.explode(gameObject);
+        Destroy(gameObject);
+    }
 }

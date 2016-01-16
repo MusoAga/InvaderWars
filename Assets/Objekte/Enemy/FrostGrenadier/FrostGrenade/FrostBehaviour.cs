@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FrostBehaviour : MonoBehaviour {
 
-    float lifetime = 600;
+     float lifetime = 600;
 
 	// Use this for initialization
 	void Start () {

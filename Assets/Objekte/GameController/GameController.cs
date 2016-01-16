@@ -41,6 +41,15 @@ public class GameController : MonoBehaviour {
     private bool bossSpawned = false;
     private bool gameCreated = false;
 
+    //Variablen für Spielerupgrades
+    public GameObject player;
+    private int lifeUpgrade = 3;
+    private int firerateUpgrade = 3;
+    private int speedUpgrade = 3;
+    private int frostResistance = 3;
+    private bool laserUpgrade = false;
+    public AudioClip unableSound;
+
     // Static singleton property
     public static GameController Instance { get; private set; }
 
@@ -184,8 +193,11 @@ public class GameController : MonoBehaviour {
             winMenu.SetActive(true);
 
             collectedRessourcesValueText.text = collectedResources.ToString();
+
+            totalResources += collectedResources;
             totalRessourcesValueText.text = totalResources.ToString();
 
+            
             collectedResources = 0;
             playerWin = false;
         }
@@ -358,4 +370,68 @@ public class GameController : MonoBehaviour {
         Time.timeScale = 1;
     }
 
+    public void upgradePlayer(string upgrade)
+    {
+
+        //Lebensupgrade
+        if (upgrade.Equals("Lifepoints") && lifeUpgrade > 0 && totalResources >= 300)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseLifePoints();
+            lifeUpgrade--;
+            totalResources -= 300;
+        }
+        else if(upgrade.Equals("Lifepoints") && lifeUpgrade <= 0)
+        {
+            GetComponent<AudioSource>().PlayOneShot(unableSound);
+        }
+
+        //Upgrade der Feuerrate
+        if (upgrade.Equals("Firerate") && firerateUpgrade > 0 && totalResources >= 200)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseFireRate();
+            firerateUpgrade--;
+            totalResources -= 200;
+        }
+        else if (upgrade.Equals("Firerate") && firerateUpgrade <= 0)
+        {
+            GetComponent<AudioSource>().PlayOneShot(unableSound);
+        }
+
+        //Speedupgrade
+        if (upgrade.Equals("Speed") && speedUpgrade > 0 && totalResources >= 250)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseSpeed();
+            speedUpgrade--;
+            totalResources -= 250;
+        }
+        else if (upgrade.Equals("Speed") && speedUpgrade <= 0)
+        {
+            GetComponent<AudioSource>().PlayOneShot(unableSound);
+        }
+
+
+        //Upgrade der Frostresistenz
+        if (upgrade.Equals("Frostresistenz") && frostResistance > 0 && totalResources >= 300)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseFrostResistence();
+            frostResistance--;
+            totalResources -= 300;
+        }
+        else if (upgrade.Equals("Frostresistenz") && frostResistance <= 0)
+        {
+            GetComponent<AudioSource>().PlayOneShot(unableSound);
+        }
+
+        //Upgrade der Frostresistenz
+        if (upgrade.Equals("Schusswechsel") && laserUpgrade == false && totalResources >= 3000)
+        {
+            player.GetComponent<PlayerController_Attack>().changeShot("Laser");
+            laserUpgrade = true;
+            totalResources -= 3000;
+        }
+        else if (upgrade.Equals("Schusswechsel") && laserUpgrade == true)
+        {
+            GetComponent<AudioSource>().PlayOneShot(unableSound);
+        }
+    }
 }

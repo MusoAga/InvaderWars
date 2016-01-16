@@ -34,9 +34,11 @@ public class RocketBehaviour : ShotBehaviour, Hitable
     
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.GetComponent<Hitable>() != null)
+        if (coll.gameObject.GetComponent<Hitable>() != null && !coll.Equals(gameObject.GetComponent<ShotBehaviour>().getOwner().GetComponent<Collider2D>()))
+        {
             coll.gameObject.GetComponent<Hitable>().dealDamage(damage);
-        onDestruction();
+            onDestruction();
+        }
     }
 
     public override void onDestruction()

@@ -14,7 +14,7 @@ Description:
 
 <Levels>
 	<Level>
-		<Levelnumber>4</Levelnumber>
+		<Levelnumber>1</Levelnumber>
 		<Mode>attack</Mode>
 		<Difficulty>2</Difficulty>
 		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
@@ -24,17 +24,17 @@ Description:
 		
 		<Spawnpoint>
 			<Spawnpoint_x>3</Spawnpoint_x>
-			<Spawnpoint_y>3</Spawnpoint_y>
+			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		
 		<Spawnpoint>
 			<Spawnpoint_x>-3</Spawnpoint_x>
-			<Spawnpoint_y>3</Spawnpoint_y>
+			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		
 		<Spawnpoint>
 			<Spawnpoint_x>0</Spawnpoint_x>
-			<Spawnpoint_y>3</Spawnpoint_y>
+			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		
 		
@@ -51,17 +51,17 @@ Description:
 		
 		<Spawnpoint>
 			<Spawnpoint_x>4</Spawnpoint_x>
-			<Spawnpoint_y>3</Spawnpoint_y>
+			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		
 		<Spawnpoint>
 			<Spawnpoint_x>-2</Spawnpoint_x>
-			<Spawnpoint_y>3</Spawnpoint_y>
+			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		
 		<Spawnpoint>
 			<Spawnpoint_x>0</Spawnpoint_x>
-			<Spawnpoint_y>3</Spawnpoint_y>
+			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 	</Level>
 
@@ -76,22 +76,22 @@ Description:
 
     <Spawnpoint>
       <Spawnpoint_x>2</Spawnpoint_x>
-      <Spawnpoint_y>3</Spawnpoint_y>
+      <Spawnpoint_y>4</Spawnpoint_y>
     </Spawnpoint>
 
     <Spawnpoint>
       <Spawnpoint_x>-4</Spawnpoint_x>
-      <Spawnpoint_y>3</Spawnpoint_y>
+      <Spawnpoint_y>4</Spawnpoint_y>
     </Spawnpoint>
 
     <Spawnpoint>
       <Spawnpoint_x>1</Spawnpoint_x>
-      <Spawnpoint_y>3</Spawnpoint_y>
+      <Spawnpoint_y>4</Spawnpoint_y>
     </Spawnpoint>
   </Level>
 
     <Level>
-      <Levelnumber>1</Levelnumber>
+      <Levelnumber>4</Levelnumber>
       <Mode>attack</Mode>
       <Difficulty>1</Difficulty>
       <Enemytype_1>Small_Shooter_Defense</Enemytype_1>
@@ -101,17 +101,17 @@ Description:
 
       <Spawnpoint>
         <Spawnpoint_x>3</Spawnpoint_x>
-        <Spawnpoint_y>3</Spawnpoint_y>
+        <Spawnpoint_y>4</Spawnpoint_y>
       </Spawnpoint>
 
       <Spawnpoint>
         <Spawnpoint_x>-3</Spawnpoint_x>
-        <Spawnpoint_y>3</Spawnpoint_y>
+        <Spawnpoint_y>4</Spawnpoint_y>
       </Spawnpoint>
 
       <Spawnpoint>
         <Spawnpoint_x>0</Spawnpoint_x>
-        <Spawnpoint_y>3</Spawnpoint_y>
+        <Spawnpoint_y>4</Spawnpoint_y>
       </Spawnpoint>
     </Level>
   </Levels>
