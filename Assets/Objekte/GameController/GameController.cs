@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
     /** Die Gesamtzahl der vom Player gesammelten Ressourcen in diesem Level.  */
     private int collectedResources = 0;
     /** Die insgesamt Gesammelten Resourcen im ganzen Spiel */
-    private int totalResources = 0;
+    private int totalResources = 100000;
 
     /** Boolean-Werte für Spieler Gewonnen bzw. Verloren*/
     private bool playerLose = false;
@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
 
     //Variablen für Spielerupgrades
     public GameObject player;
+    private GameObject upgradeButton;
     private int lifeUpgrade = 3;
     private int firerateUpgrade = 3;
     private int speedUpgrade = 3;
@@ -110,7 +111,7 @@ public class GameController : MonoBehaviour {
     */
     void OnGUI()
     {
-        GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + collectedResources.ToString());
+        GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + totalResources.ToString());
     }
 
     /**
@@ -378,6 +379,20 @@ public class GameController : MonoBehaviour {
         {
             player.GetComponent<PlayerController_Attack>().increaseLifePoints();
             lifeUpgrade--;
+            if(lifeUpgrade == 2)
+            {
+                upgradeButton = GameObject.Find("ArmorLevel1");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("ArmorLevel2");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
+            else if(lifeUpgrade == 1)
+            {
+                upgradeButton = GameObject.Find("ArmorLevel2");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("ArmorLevel3");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
             totalResources -= 300;
         }
         else if(upgrade.Equals("Lifepoints") && lifeUpgrade <= 0)
@@ -390,6 +405,20 @@ public class GameController : MonoBehaviour {
         {
             player.GetComponent<PlayerController_Attack>().increaseFireRate();
             firerateUpgrade--;
+            if (firerateUpgrade == 2)
+            {
+                upgradeButton = GameObject.Find("FirerateLevel1");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("FirerateLevel2");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
+            else if (firerateUpgrade == 1)
+            {
+                upgradeButton = GameObject.Find("FirerateLevel2");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("FirerateLevel3");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
             totalResources -= 200;
         }
         else if (upgrade.Equals("Firerate") && firerateUpgrade <= 0)
@@ -402,6 +431,20 @@ public class GameController : MonoBehaviour {
         {
             player.GetComponent<PlayerController_Attack>().increaseSpeed();
             speedUpgrade--;
+            if (speedUpgrade == 2)
+            {
+                upgradeButton = GameObject.Find("SpeedLevel1");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("SpeedLevel2");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
+            else if (speedUpgrade == 1)
+            {
+                upgradeButton = GameObject.Find("SpeedLevel2");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("SpeedLevel3");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
             totalResources -= 250;
         }
         else if (upgrade.Equals("Speed") && speedUpgrade <= 0)
@@ -415,6 +458,20 @@ public class GameController : MonoBehaviour {
         {
             player.GetComponent<PlayerController_Attack>().increaseFrostResistence();
             frostResistance--;
+            if (frostResistance == 2)
+            {
+                upgradeButton = GameObject.Find("FrostLevel1");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("FrostLevel2");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
+            else if (frostResistance == 1)
+            {
+                upgradeButton = GameObject.Find("FrostLevel2");
+                upgradeButton.GetComponent<Button>().interactable = false;
+                upgradeButton = GameObject.Find("FrostLevel3");
+                upgradeButton.GetComponent<Button>().interactable = true;
+            }
             totalResources -= 300;
         }
         else if (upgrade.Equals("Frostresistenz") && frostResistance <= 0)
@@ -427,11 +484,15 @@ public class GameController : MonoBehaviour {
         {
             player.GetComponent<PlayerController_Attack>().changeShot("Laser");
             laserUpgrade = true;
+            upgradeButton = GameObject.Find("LaserUpgrade");
+            upgradeButton.GetComponent<Button>().interactable = false;
             totalResources -= 3000;
         }
         else if (upgrade.Equals("Schusswechsel") && laserUpgrade == true)
         {
             GetComponent<AudioSource>().PlayOneShot(unableSound);
         }
+
+        upgradeButton = null;
     }
 }
