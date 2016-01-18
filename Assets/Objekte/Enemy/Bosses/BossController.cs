@@ -27,5 +27,6 @@ public class BossController : EnemyController_Base {
         base.onDestruction();
         FindObjectOfType<GameController>().addResources(200);
         FindObjectOfType<GameController>().onVictory();
+        FindObjectOfType<GameController>().setLevelComplete(true);
     }
 }
