@@ -9,8 +9,10 @@ public class GameController : MonoBehaviour {
     /** Int mit Zahl des aktuellen Levels. Wird zur Initiierung des Levels beim Laden benutzt. */
     private int currentLevel;
     private int currentDifficulty;
+    private int levelTemp = 1;
+    private bool levelComplete = false;
 
-    public GameObject pauseMenu, winMenu, loseMenu;
+    public GameObject pauseMenu, winMenu, loseMenu, planetTemp;
 
     public Text collectedRessourcesValueText = null;
     public Text totalRessourcesValueText = null;
@@ -43,7 +45,7 @@ public class GameController : MonoBehaviour {
 
     //Variablen für Spielerupgrades
     public GameObject player;
-    private GameObject upgradeButton;
+    private GameObject upgradeSlider;
     private int lifeUpgrade = 3;
     private int firerateUpgrade = 3;
     private int speedUpgrade = 3;
@@ -71,6 +73,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         checkMenus();
+        checkLevels();
         if (checkSpawnsFinished() && !bossSpawned)
         {
             print("boss gespawnt");
@@ -112,6 +115,7 @@ public class GameController : MonoBehaviour {
     void OnGUI()
     {
         GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + totalResources.ToString());
+        GUI.TextArea(new Rect((100), 30, 150, 20), " Armor: " + player.GetComponent<PlayerController_Base>().getLifePoints().ToString());
     }
 
     /**
@@ -226,6 +230,15 @@ public class GameController : MonoBehaviour {
         return playerLose;
     }
 
+    public bool bossIsSpawned()
+    {
+        return bossSpawned;
+    }
+
+    public void setBossSpwaned(bool spawned)
+    {
+        bossSpawned = false;
+    }
 
     public void tooglePause()
     {
@@ -271,6 +284,55 @@ public class GameController : MonoBehaviour {
         currentLevel = i;
     }
 
+    public void checkLevels()
+    {
+        if(levelTemp == 2)
+        {
+            planetTemp = GameObject.Find("IcePlanet");
+            planetTemp.GetComponent<Button>().interactable = true;
+        }
+        else if (levelTemp == 3)
+        {
+            planetTemp = GameObject.Find("IcePlanet");
+            planetTemp.GetComponent<Button>().interactable = true;
+            planetTemp = GameObject.Find("VolcanoPlanet");
+            planetTemp.GetComponent<Button>().interactable = true;
+        }
+    }
+
+    public void unlockNextLevel()
+    {
+        if(levelComplete)
+        {
+
+            levelTemp += 1;
+
+            if (levelTemp == 2)
+            {
+                planetTemp = GameObject.Find("IcePlanet");
+                planetTemp.GetComponent<Button>().interactable = true;
+            }
+            else if (levelTemp == 3)
+            {
+                planetTemp = GameObject.Find("VolcanoPlanet");
+                planetTemp.GetComponent<Button>().interactable = true;
+            }
+
+            planetTemp = null;
+            print("Nächstes Level freigeschaltet");
+        }
+    }
+
+    public void setLevelComplete(bool complete)
+    {
+        levelComplete = complete;
+    }
+
+    public bool isLevelComplete()
+    {
+        return levelComplete;
+    }
+
     public void startScene(string scene)
     {
         Application.LoadLevel(scene);
@@ -278,6 +340,7 @@ public class GameController : MonoBehaviour {
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
         pause = false;
+        unlockNextLevel();
     }
 
     public void spawnFinished()
@@ -373,126 +436,77 @@ public class GameController : MonoBehaviour {
 
     public void upgradePlayer(string upgrade)
     {
+            //Lebensupgrade
+            if (upgrade.Equals("Lifepoints") && lifeUpgrade > 0 && totalResources >= 300)
+            {
+                player.GetComponent<PlayerController_Attack>().increaseLifePoints();
+                lifeUpgrade--;
+                upgradeSlider = GameObject.Find("ArmorSlider");
+                upgradeSlider.GetComponent<Slider>().value += 1;
+                totalResources -= 300;
+            }
+            else if (upgrade.Equals("Lifepoints") && lifeUpgrade <= 0)
+            {
+                GetComponent<AudioSource>().PlayOneShot(unableSound);
+            }
 
-        //Lebensupgrade
-        if (upgrade.Equals("Lifepoints") && lifeUpgrade > 0 && totalResources >= 300)
-        {
-            player.GetComponent<PlayerController_Attack>().increaseLifePoints();
-            lifeUpgrade--;
-            if(lifeUpgrade == 2)
+            //Upgrade der Feuerrate
+            if (upgrade.Equals("Firerate") && firerateUpgrade > 0 && totalResources >= 200)
             {
-                upgradeButton = GameObject.Find("ArmorLevel1");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("ArmorLevel2");
-                upgradeButton.GetComponent<Button>().interactable = true;
+                player.GetComponent<PlayerController_Attack>().increaseFireRate();
+                firerateUpgrade--;
+                upgradeSlider = GameObject.Find("FirerateSlider");
+                upgradeSlider.GetComponent<Slider>().value += 1;
+                totalResources -= 200;
             }
-            else if(lifeUpgrade == 1)
+            else if (upgrade.Equals("Firerate") && firerateUpgrade <= 0)
             {
-                upgradeButton = GameObject.Find("ArmorLevel2");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("ArmorLevel3");
-                upgradeButton.GetComponent<Button>().interactable = true;
+                GetComponent<AudioSource>().PlayOneShot(unableSound);
             }
-            totalResources -= 300;
-        }
-        else if(upgrade.Equals("Lifepoints") && lifeUpgrade <= 0)
-        {
-            GetComponent<AudioSource>().PlayOneShot(unableSound);
-        }
 
-        //Upgrade der Feuerrate
-        if (upgrade.Equals("Firerate") && firerateUpgrade > 0 && totalResources >= 200)
-        {
-            player.GetComponent<PlayerController_Attack>().increaseFireRate();
-            firerateUpgrade--;
-            if (firerateUpgrade == 2)
+            //Speedupgrade
+            if (upgrade.Equals("Speed") && speedUpgrade > 0 && totalResources >= 250)
             {
-                upgradeButton = GameObject.Find("FirerateLevel1");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("FirerateLevel2");
-                upgradeButton.GetComponent<Button>().interactable = true;
+                player.GetComponent<PlayerController_Attack>().increaseSpeed();
+                speedUpgrade--;
+                upgradeSlider = GameObject.Find("SpeedSlider");
+                upgradeSlider.GetComponent<Slider>().value += 1;
+                totalResources -= 250;
             }
-            else if (firerateUpgrade == 1)
+            else if (upgrade.Equals("Speed") && speedUpgrade <= 0)
             {
-                upgradeButton = GameObject.Find("FirerateLevel2");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("FirerateLevel3");
-                upgradeButton.GetComponent<Button>().interactable = true;
+                GetComponent<AudioSource>().PlayOneShot(unableSound);
             }
-            totalResources -= 200;
-        }
-        else if (upgrade.Equals("Firerate") && firerateUpgrade <= 0)
-        {
-            GetComponent<AudioSource>().PlayOneShot(unableSound);
-        }
-
-        //Speedupgrade
-        if (upgrade.Equals("Speed") && speedUpgrade > 0 && totalResources >= 250)
-        {
-            player.GetComponent<PlayerController_Attack>().increaseSpeed();
-            speedUpgrade--;
-            if (speedUpgrade == 2)
-            {
-                upgradeButton = GameObject.Find("SpeedLevel1");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("SpeedLevel2");
-                upgradeButton.GetComponent<Button>().interactable = true;
-            }
-            else if (speedUpgrade == 1)
-            {
-                upgradeButton = GameObject.Find("SpeedLevel2");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("SpeedLevel3");
-                upgradeButton.GetComponent<Button>().interactable = true;
-            }
-            totalResources -= 250;
-        }
-        else if (upgrade.Equals("Speed") && speedUpgrade <= 0)
-        {
-            GetComponent<AudioSource>().PlayOneShot(unableSound);
-        }
 
 
-        //Upgrade der Frostresistenz
-        if (upgrade.Equals("Frostresistenz") && frostResistance > 0 && totalResources >= 300)
-        {
-            player.GetComponent<PlayerController_Attack>().increaseFrostResistence();
-            frostResistance--;
-            if (frostResistance == 2)
+            //Upgrade der Frostresistenz
+            if (upgrade.Equals("Frostresistenz") && frostResistance > 0 && totalResources >= 300)
             {
-                upgradeButton = GameObject.Find("FrostLevel1");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("FrostLevel2");
-                upgradeButton.GetComponent<Button>().interactable = true;
+                player.GetComponent<PlayerController_Attack>().increaseFrostResistence();
+                frostResistance--;
+                upgradeSlider = GameObject.Find("FrostSlider");
+                upgradeSlider.GetComponent<Slider>().value += 1;
+                totalResources -= 300;
             }
-            else if (frostResistance == 1)
+            else if (upgrade.Equals("Frostresistenz") && frostResistance <= 0)
             {
-                upgradeButton = GameObject.Find("FrostLevel2");
-                upgradeButton.GetComponent<Button>().interactable = false;
-                upgradeButton = GameObject.Find("FrostLevel3");
-                upgradeButton.GetComponent<Button>().interactable = true;
+                GetComponent<AudioSource>().PlayOneShot(unableSound);
             }
-            totalResources -= 300;
-        }
-        else if (upgrade.Equals("Frostresistenz") && frostResistance <= 0)
-        {
-            GetComponent<AudioSource>().PlayOneShot(unableSound);
-        }
 
-        //Upgrade der Frostresistenz
-        if (upgrade.Equals("Schusswechsel") && laserUpgrade == false && totalResources >= 3000)
-        {
-            player.GetComponent<PlayerController_Attack>().changeShot("Laser");
-            laserUpgrade = true;
-            upgradeButton = GameObject.Find("LaserUpgrade");
-            upgradeButton.GetComponent<Button>().interactable = false;
-            totalResources -= 3000;
-        }
-        else if (upgrade.Equals("Schusswechsel") && laserUpgrade == true)
-        {
-            GetComponent<AudioSource>().PlayOneShot(unableSound);
-        }
+            //Upgrade der Frostresistenz
+            if (upgrade.Equals("Schusswechsel") && laserUpgrade == false && totalResources >= 3000)
+            {
+                player.GetComponent<PlayerController_Attack>().changeShot("Laser");
+                laserUpgrade = true;
+                upgradeSlider = GameObject.Find("LaserSlider");
+                upgradeSlider.GetComponent<Slider>().value += 1;
+                totalResources -= 3000;
+            }
+            else if (upgrade.Equals("Schusswechsel") && laserUpgrade == true)
+            {
+                GetComponent<AudioSource>().PlayOneShot(unableSound);
+            }
 
-        upgradeButton = null;
+            upgradeSlider = null;
     }
 }

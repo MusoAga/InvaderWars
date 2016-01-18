@@ -105,6 +105,11 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         lifePoints++;
     }
 
+    public int getLifePoints()
+    {
+        return lifePoints;
+    }
+
     public void changeShot(string shotType)
     {
 

@@ -21,17 +21,41 @@ public class MusicController : MonoBehaviour {
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = Resources.Load<AudioClip>("Music/Normal3_Loop");
-        playMusic();
+        playMenuMusic();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    public void playMusic()
+    void OnLevelWasLoaded(int level)
     {
+        if(level == 4)
+        {
+            playIngameMusic();
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if(GameObject.FindObjectOfType<GameController>() != null && GameObject.FindObjectOfType<GameController>().bossIsSpawned())
+        {
+            playBossMusic();
+            GameObject.FindObjectOfType<GameController>().setBossSpwaned(false);
+        }
+    }
+
+    private void playBossMusic()
+    {
+        audioSource.clip = Resources.Load<AudioClip>("Music/Boss1");
+        audioSource.Play();
+    }
+
+    private void playIngameMusic()
+    {
+        audioSource.clip = Resources.Load<AudioClip>("Music/Normal1");
+        audioSource.Play();
+    }
+
+    private void playMenuMusic()
+    {
+        audioSource.clip = Resources.Load<AudioClip>("Music/Normal2");
         audioSource.Play();
     }
 

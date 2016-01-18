@@ -12,11 +12,25 @@ public class LevelManager : MonoBehaviour {
     public Text UpgradeInfo;
     public Text UpgradeName;
 
-    private string upgradeName;
-
-    private bool upgrade = false;
-
     private GameObject button;
+
+    void Start()
+    {
+        if(Application.loadedLevelName.Equals("Planets"))
+        {
+            upgradeMenu.gameObject.SetActive(false);
+            planetMenu.gameObject.SetActive(true);
+        }
+    }
+
+    void Update()
+    {
+        if(FindObjectOfType<GameController>() != null && FindObjectOfType<GameController>().isLevelComplete())
+        {
+            FindObjectOfType<GameController>().unlockNextLevel();
+            FindObjectOfType<GameController>().setLevelComplete(false);
+        }
+    }
 
     public void StartGame(string name)
     {
@@ -105,7 +119,7 @@ public class LevelManager : MonoBehaviour {
     */
     public void UpdateUpgradeInfo(string upgradeName)
     {
-        upgrade = true;
+
         if (upgradeName.Equals("Lifepoints"))
         {
             UpgradeInfo.text = "Upgrade your armor to \nwithstand your enemies!";
@@ -132,8 +146,6 @@ public class LevelManager : MonoBehaviour {
             UpgradeName.text = "Unbelievable  Laser  Shot";
         }
 
-        this.upgradeName = upgradeName;
-
     }
 
     public void StartPlanetLevel()
@@ -141,12 +153,9 @@ public class LevelManager : MonoBehaviour {
         FindObjectOfType<GameController>().StartPlanetLevel();
     }
 
-    public void upgradePlayer()
+    public void upgradePlayer(string upgradeName)
     {
-        if(upgrade)
-        {
+        if(Input.GetMouseButtonUp(0))
             FindObjectOfType<GameController>().upgradePlayer(upgradeName);
-            upgrade = false;
-        }
     }
 }
