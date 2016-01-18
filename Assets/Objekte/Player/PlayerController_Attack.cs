@@ -37,17 +37,11 @@ public class PlayerController_Attack : PlayerController_Base {
     public override void Start()
     {
         base.Start();
-
-        // Berechne die Boundary Dynamisch zu jeder Auflösung
-        float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
-        Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
-
         // +- 0.4 wegen dem Collider vom Spieler
-        xMinBoundary = bottomCorner.x + 0.4F;
-        xMaxBoundary = topCorner.x - 0.4F;
-        yMinBoundary = bottomCorner.y + 0.4F;
-        yMaxBoundary = topCorner.y - 0.4F;
+        xMinBoundary = InvaderWars.boundXmin(gameObject);
+        xMaxBoundary = InvaderWars.boundXmax(gameObject);
+        yMinBoundary = InvaderWars.boundYmin(gameObject);
+        yMaxBoundary = InvaderWars.boundYmax(gameObject);
     }
 
 }
