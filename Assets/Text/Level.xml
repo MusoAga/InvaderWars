@@ -17,10 +17,10 @@ Description:
 		<Levelnumber>1</Levelnumber>
 		<Mode>attack</Mode>
 		<Difficulty>2</Difficulty>
-		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
+		<Enemytype_1>PoisonShooter</Enemytype_1>
 		<Enemytype_2>FrostGrenadier</Enemytype_2>
 		<Enemytype_3>Marauder</Enemytype_3>
-		<Enemytype_4>Skull</Enemytype_4>
+		<Enemytype_4>Cryo</Enemytype_4>
 		
 		<Spawnpoint>
 			<Spawnpoint_x>3</Spawnpoint_x>
@@ -44,7 +44,7 @@ Description:
 		<Levelnumber>2</Levelnumber>
 		<Mode>attack</Mode>
 		<Difficulty>3</Difficulty>
-		<Enemytype_1>Small_Shooter_Defense</Enemytype_1>
+		<Enemytype_1>PoisonShooter</Enemytype_1>
 		<Enemytype_2>PoisonShip</Enemytype_2>
 		<Enemytype_3>Minethrower</Enemytype_3>
 		<Enemytype_4>Skull</Enemytype_4>
@@ -69,10 +69,10 @@ Description:
     <Levelnumber>3</Levelnumber>
     <Mode>attack</Mode>
     <Difficulty>4</Difficulty>
-    <Enemytype_1>Minethrower</Enemytype_1>
-    <Enemytype_2>Flamethrower</Enemytype_2>
-    <Enemytype_3>Small_Shooter_Defense</Enemytype_3>
-    <Enemytype_4>Skull</Enemytype_4>
+    <Enemytype_1>Flamethrower</Enemytype_1>
+    <Enemytype_2>Minethrower</Enemytype_2>
+    <Enemytype_3>Marauder</Enemytype_3>
+    <Enemytype_4>Pyro</Enemytype_4>
 
     <Spawnpoint>
       <Spawnpoint_x>2</Spawnpoint_x>

@@ -10,38 +10,5 @@
 		<Collidersize></Collidersize> The float size of the enemys boxcollider. The collider will be twice as big as the given number
 	</Enemy>-->
 	
-	<Enemy> <!-- XmlNode --> 
-		<Name>Small_Shooter_Defense</Name>
-		<Type>Shooter</Type>
-		<Shoots>true</Shoots>
-		<Speed>0.04</Speed>
-		<Lifepoints>1</Lifepoints>
-		<Resources>8</Resources>
-		<Sprite>small_shooter.jpg</Sprite>
-		<Collidersize>0.5</Collidersize>
-	</Enemy> <!-- XmlNode -->
-	
-	<Enemy>
-		<Name>Medium_Shooter_Defense</Name>
-		<Type>Shooter</Type>
-		<Shoots>true</Shoots>
-		<Speed>0.018</Speed>
-		<Lifepoints>2</Lifepoints>
-		<Resources>15</Resources>
-		<Sprite>medium_shooter.jpg</Sprite>
-		<Collidersize>0.5</Collidersize>
-	</Enemy>
-	
-	<Enemy>
-		<Name>Small_Meteoroid_Defense</Name>
-		<Type>Meteoroid</Type>
-		<Shoots>false</Shoots>
-		<Speed>0.3</Speed>
-		<Lifepoints>3</Lifepoints>
-		<Resources>30</Resources>
-		<Sprite>small_meteoroid.jpg</Sprite>
-		<Collidersize>0.5</Collidersize>
-	</Enemy>
-	
 	
 </Enemies> <!-- / XmlNodeList -->
