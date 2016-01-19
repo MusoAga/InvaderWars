@@ -21,8 +21,9 @@ public class PoisonBehaviour : MonoBehaviour {
     {
         if (coll.gameObject.GetComponent<PlayerController_Base>() != null)
         { 
-        Destroy(gameObject);
-        coll.gameObject.GetComponent<PlayerController_Base>().onHit();
+            Destroy(gameObject);
+            coll.gameObject.GetComponent<PlayerController_Base>().onHit();
+            coll.gameObject.GetComponent<Hitable>().dealDamage(1);
         }
     }
 

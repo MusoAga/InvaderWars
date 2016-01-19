@@ -35,7 +35,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
 
     public void setup(float _speed, float _lifePoints, int _resources)
     {
-        this.speed = _speed;
+        //this.speed = _speed;
         this.lifepoints = _lifePoints;
         this.resources = _resources;
         print("Resources: " + resources.ToString() + "\n_Resources: " + _resources.ToString());
@@ -44,7 +44,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     public virtual void enemyBehaviour()
     {
        // moveInDirection(new Vector2(0,-1));
-        moveInDirection(transform.up);
+        moveInDirection(transform.up*speed);
     }
 
     // Feuere Schüsse ab

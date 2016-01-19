@@ -66,8 +66,9 @@
      <Compile Include="Assets\Objekte\Enemy\Marauder\Rocket\RocketBehaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\Minethrower\Enemy_MineThrower.cs" />
      <Compile Include="Assets\Objekte\Enemy\Minethrower\Mine\MineBehaviour.cs" />
-     <Compile Include="Assets\Objekte\Enemy\Poison\Enemy_PoisonShip.cs" />
-     <Compile Include="Assets\Objekte\Enemy\Poison\PoisonBehaviour.cs" />
+     <Compile Include="Assets\Objekte\Enemy\PoisonShip\Enemy_PoisonShip.cs" />
+     <Compile Include="Assets\Objekte\Enemy\PoisonShip\PoisonBehaviour.cs" />
+     <Compile Include="Assets\Objekte\Enemy\PoisonShooter\Enemy_PoisonShooter.cs" />
      <Compile Include="Assets\Objekte\Explosion\Explosion.cs" />
      <Compile Include="Assets\Objekte\Interface_Hitable.cs" />
      <Compile Include="Assets\Objekte\Player\Animationen\PlayerBase\PlayerBase_Def.cs" />

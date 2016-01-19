@@ -9,7 +9,7 @@ public class MineBehaviour : MonoBehaviour, Hitable {
     public void OnTriggerEnter2D(Collider2D coll)
     {
         onDestruction();
-        if (coll.gameObject.GetComponent<Hitable>() != null)
+        if (coll.gameObject.GetComponent<PlayerController_Base>() != null)
             coll.gameObject.GetComponent<Hitable>().dealDamage(2);
     }
 

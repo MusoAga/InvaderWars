@@ -7,6 +7,7 @@ public class Enemy_PoisonShip : EnemyController_Base
     public override void enemyBehaviour()
    {
         base.enemyBehaviour();
+        charge++;
         if (charge >= 30)
         {
             charge = 0;
