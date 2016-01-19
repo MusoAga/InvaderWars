@@ -209,7 +209,7 @@ public class GameController : MonoBehaviour {
         {
             loseMenu.SetActive(true);
 
-            totalResources += collectedResources;
+            //totalResources += collectedResources;
             collectedResources = 0;
             playerLose = false;
         }
@@ -451,6 +451,8 @@ public class GameController : MonoBehaviour {
 
     public void StartPlanetLevel()
     {
+        spawningSpawnpoints = 99;
+        spawnpoints.Clear();
         Application.LoadLevel("rene_test");
         Time.timeScale = 1;
     }

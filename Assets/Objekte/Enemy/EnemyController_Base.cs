@@ -24,7 +24,8 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
         if(!FindObjectOfType<GameController>().isPaused())
             enemyBehaviour();
         // Sobald ein Gegner das Ende des Bildschirms erreicht hat, wird er entfernt
-        if (transform.position.y < -5)
+
+        if (transform.position.y < InvaderWars.boundYmin(gameObject))
         {
             Destroy(gameObject);
             spawnOrigin.GetComponent<SpawnController>().enemyDied();
@@ -74,11 +75,6 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     protected void moveTowardsPoint(Vector3 targetPoint, float speed)
     {
       moveInDirection(Vector3.Lerp(transform.position, targetPoint, speed) - transform.position);
-    }
-
-    void initializeStats()
-    {
-
     }
 
     public virtual void onDestruction()

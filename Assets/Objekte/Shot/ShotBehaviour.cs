@@ -7,7 +7,7 @@ public class ShotBehaviour : MonoBehaviour {
     public int maxLifetime = 100;
     public float movementSpeed = 1;
     public int damage = 1;
-    private GameObject owner;
+    protected GameObject owner;
 	
 
     public void shoot(GameObject newOwner)

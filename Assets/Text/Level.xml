@@ -17,7 +17,7 @@ Description:
 		<Levelnumber>1</Levelnumber>
 		<Mode>attack</Mode>
 		<Difficulty>2</Difficulty>
-		<Enemytype_1>PoisonShooter</Enemytype_1>
+		<Enemytype_1>IceShooter</Enemytype_1>
 		<Enemytype_2>FrostGrenadier</Enemytype_2>
 		<Enemytype_3>Marauder</Enemytype_3>
 		<Enemytype_4>Cryo</Enemytype_4>
@@ -33,7 +33,7 @@ Description:
 		</Spawnpoint>
 		
 		<Spawnpoint>
-			<Spawnpoint_x>3</Spawnpoint_x>
+			<Spawnpoint_x>0</Spawnpoint_x>
 			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		

@@ -18,9 +18,9 @@ public class Enemy_Flamethrower : EnemyController_Base {
         GetComponent<Animator>().Play("Flamethrower_Shoot");
     }
 
-    // Update is called once per frame
-    void Update () {
-        moveInDirection(direction);
+    public override void enemyBehaviour()
+    {
+        moveInDirection(direction * speed);
 
         PlayerController_Base player = FindObjectOfType<PlayerController_Base>();
         if (player != null)
@@ -31,5 +31,6 @@ public class Enemy_Flamethrower : EnemyController_Base {
             if (charge > 120)
                 shoot();
         }
-}
+    }
+    
 }

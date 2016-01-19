@@ -62,6 +62,7 @@
      <Compile Include="Assets\Objekte\Enemy\FrostGrenadier\Enemy_FrostGrenadier.cs" />
      <Compile Include="Assets\Objekte\Enemy\FrostGrenadier\FrostGrenade\FrostBehaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\FrostGrenadier\FrostGrenade\FrostGrenadeBehaviour.cs" />
+     <Compile Include="Assets\Objekte\Enemy\IceShooter\Iceshot\IceShotBehaviour.cs" />
      <Compile Include="Assets\Objekte\Enemy\LaserSphere\Enemy_LaserSphere.cs" />
      <Compile Include="Assets\Objekte\Enemy\LaserSphere\LaserShot.cs" />
      <Compile Include="Assets\Objekte\Enemy\Marauder\Enemy_Marauder.cs" />

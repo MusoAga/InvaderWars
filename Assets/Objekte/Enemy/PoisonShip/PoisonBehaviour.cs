@@ -13,7 +13,7 @@ public class PoisonBehaviour : ShotBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer++;
-        if (timer > 500)
+        if (timer > 300)
             Destroy(gameObject);
 	}
 
