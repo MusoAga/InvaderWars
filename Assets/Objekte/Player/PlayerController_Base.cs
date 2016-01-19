@@ -53,7 +53,7 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         this.shootSound = shootSound_Bullet;
         this.lifePoints = 3;
         this.maxLifePoints = this.lifePoints;
-        this.speed = 2;
+        this.speed = 2.5f;
         this.fireRate = 30;
 
     }

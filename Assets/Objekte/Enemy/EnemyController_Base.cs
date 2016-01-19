@@ -11,9 +11,12 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     GameObject spawnOrigin = null;
     public GameObject shot;
     public AudioClip shootSound;
+    private Vector3 spawnPos;
+
 
     // Use this for initialization
     void Start () {
+        
     }
 	
 	// Update is called once per frame
@@ -31,6 +34,8 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
     public void setSpawnOrigin(GameObject spawn) 
     {
         this.spawnOrigin = spawn;
+        spawnPos = gameObject.transform.position;
+       // print(spawnPos.ToString());
     }
 
     public void setup(float _speed, float _lifePoints, int _resources)
@@ -40,11 +45,11 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
         this.resources = _resources;
         print("Resources: " + resources.ToString() + "\n_Resources: " + _resources.ToString());
     }
-
+    bool moveRight = false;
+    
     public virtual void enemyBehaviour()
     {
-       // moveInDirection(new Vector2(0,-1));
-        moveInDirection(transform.up*speed);
+            moveInDirection(new Vector2((Mathf.Sin(transform.position.y * 2) + (UnityEngine.Random.value >= 0-5f ? UnityEngine.Random.value / 3 : -(UnityEngine.Random.value / 2))), -0.1f - speed ));
     }
 
     // Feuere Schüsse ab

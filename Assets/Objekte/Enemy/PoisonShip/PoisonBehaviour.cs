@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PoisonBehaviour : MonoBehaviour {
+public class PoisonBehaviour : ShotBehaviour {
 
     protected float timer; // Lebenszeit des Giftes
 

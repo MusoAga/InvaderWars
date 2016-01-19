@@ -25,7 +25,7 @@ public class BossController : EnemyController_Base {
     public override void onDestruction()
     {
         base.onDestruction();
-        FindObjectOfType<GameController>().addResources(200);
+        FindObjectOfType<GameController>().addResources(this.resources);
         FindObjectOfType<GameController>().onVictory();
         FindObjectOfType<GameController>().setLevelComplete(true);
     }

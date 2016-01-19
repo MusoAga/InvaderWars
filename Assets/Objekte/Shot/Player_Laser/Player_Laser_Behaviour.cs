@@ -4,7 +4,7 @@ using System.Collections;
 public class Player_Laser_Behaviour : LaserBehaviour {
 
     private Collider2D playerColl;
-    float timer;
+     float _timer;
     public int damage;
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -20,10 +20,10 @@ public class Player_Laser_Behaviour : LaserBehaviour {
 
     void FixedUpdate()
     {
-        timer++;
+        _timer++;
         GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<BoxCollider2D>().size.x, GetComponent<BoxCollider2D>().size.y + 0.3f);
         GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<BoxCollider2D>().size.y / 1.5f);
-        if (timer > 12)
+        if (_timer > 12)
             Destroy(gameObject);
     }
 }

@@ -11,7 +11,7 @@ public class Enemy_PoisonShip : EnemyController_Base
         if (charge >= 30)
         {
             charge = 0;
-            GameObject newPoison = Instantiate(shot);
+            GameObject newPoison =Instantiate(shot, gameObject.transform.position, Quaternion.identity) as GameObject;
             newPoison.transform.position = this.transform.position - this.transform.up*0.8f;
         }
     }

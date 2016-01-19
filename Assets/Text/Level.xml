@@ -33,7 +33,7 @@ Description:
 		</Spawnpoint>
 		
 		<Spawnpoint>
-			<Spawnpoint_x>0</Spawnpoint_x>
+			<Spawnpoint_x>3</Spawnpoint_x>
 			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		
@@ -55,7 +55,7 @@ Description:
 		</Spawnpoint>
 		
 		<Spawnpoint>
-			<Spawnpoint_x>-2</Spawnpoint_x>
+			<Spawnpoint_x>-4</Spawnpoint_x>
 			<Spawnpoint_y>4</Spawnpoint_y>
 		</Spawnpoint>
 		

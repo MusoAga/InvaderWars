@@ -23,33 +23,33 @@ public class SpawnController : MonoBehaviour {
         {
             case 1:
                 this.maxEnemies = 2;
-                this.timer = 3f;
+                this.timer = 5f;
                 maxEnemiesSpawned = 10;
                 break;
             case 2:
                 this.maxEnemies = 3;
-                this.timer = 2.5f;
-                maxEnemiesSpawned = 15;
+                this.timer = 4.5f;
+                maxEnemiesSpawned = 12;
                 break;
             case 3:
                 this.maxEnemies = 5;
-                this.timer = 2.5f;
-                maxEnemiesSpawned = 20;
+                this.timer = 4f;
+                maxEnemiesSpawned = 15;
                 break;
             case 4:
                 this.maxEnemies = 6;
-                this.timer = 2.5f;
-                maxEnemiesSpawned = 25;
+                this.timer = 3.5f;
+                maxEnemiesSpawned = 18;
                 break;
             case 5:
                 this.maxEnemies = 8;
-                this.timer = 2.0f;
-                maxEnemiesSpawned = 30;
+                this.timer = 3f;
+                maxEnemiesSpawned = 20;
                 break;
             default:
                 this.maxEnemies = 5;
-                this.timer = 2.5f;
-                maxEnemiesSpawned = 20;
+                this.timer = 4f;
+                maxEnemiesSpawned = 12;
                 break;
         }
     }
@@ -60,7 +60,7 @@ public class SpawnController : MonoBehaviour {
         float rnd = Random.value;
         isSpawning = true;
         //Spawndelay abwarten
-        yield return new WaitForSeconds(timer + (Random.value * 2));
+        yield return new WaitForSeconds(timer + (Random.value >= 0.5f ? (Random.value * 2) : -(Random.value) / 6));
         enemy = null;
         if(currentEnemies < maxEnemies)
         {
@@ -68,12 +68,10 @@ public class SpawnController : MonoBehaviour {
            currentEnemies++;
            if(totalEnemiesSpawned <= 4)
            {
-               print("Spawnphase 1");
               enemy = enemies[0];
            }
            else if(totalEnemiesSpawned > 4 & totalEnemiesSpawned <= 6)
            {
-               print("Spawnphase 2");
                if(rnd >= 0.51f)
                {
                    enemy = enemies[0];
@@ -85,7 +83,6 @@ public class SpawnController : MonoBehaviour {
           }
           else if(totalEnemiesSpawned > 6)
           {
-              print("Spawnphase 3");
                if(rnd <= 0.125f)
                {
                    enemy = enemies[0];
@@ -107,7 +104,7 @@ public class SpawnController : MonoBehaviour {
 
     public void spawnBoss()
     {
-        Instantiate(enemies[3], new Vector2(0.0f, 3.5f), enemy.transform.rotation);
+        Instantiate(enemies[3], new Vector2(0.0f, 3.5f), enemies[3].transform.rotation);
         //StartCoroutine(instantiateBoss());
     }
 
@@ -122,7 +119,6 @@ public class SpawnController : MonoBehaviour {
     {
         if(currentEnemies > 0)
         currentEnemies--;
-        print(currentEnemies.ToString());
     }
 
     private void ausgabe() 
@@ -146,7 +142,6 @@ public class SpawnController : MonoBehaviour {
         }
         if (totalEnemiesSpawned >= maxEnemiesSpawned && !finished)
         {
-            print("Habe fertig");
             GameController.GetComponent<GameController>().spawnFinished();
             finished = true;
         }

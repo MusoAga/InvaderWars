@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 #if UNITY_EDITOR
@@ -24,7 +25,7 @@ public class GameController : MonoBehaviour {
     /** Die Gesamtzahl der vom Player gesammelten Ressourcen in diesem Level.  */
     private int collectedResources = 0;
     /** Die insgesamt Gesammelten Resourcen im ganzen Spiel */
-    private int totalResources = 10000;
+    private int totalResources = 0;
 
     /** Boolean-Werte für Spieler Gewonnen bzw. Verloren*/
     private bool playerLose = false;
@@ -68,7 +69,6 @@ public class GameController : MonoBehaviour {
         loseMenu.SetActive(false);
 
         Time.timeScale = 1;
-        print("Spawnpoints: " + spawningSpawnpoints.ToString());
         //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
         player.GetComponent<PlayerController_Attack>().resetPlayerStats();
@@ -79,18 +79,21 @@ public class GameController : MonoBehaviour {
         checkMenus();
         checkLevels();
         showRessources();
-        if (checkSpawnsFinished() && !bossSpawned)
+        if (!bossSpawned && checkSpawnsFinished())
         {
+            spawningSpawnpoints = 99;
+            bossSpawned = true;
             print("boss gespawnt");
             foreach(KeyValuePair<int, GameObject> pair in spawnpoints){
                 if (pair.Key.Equals(1))
                 {
+                    bossSpawned = true;
                     pair.Value.GetComponent<SpawnController>().spawnBoss();
+                    bossSpawned = true;
                 }
             }
             bossSpawned = true;
         }
-        
     }
 
     /*
@@ -205,6 +208,9 @@ public class GameController : MonoBehaviour {
         if (playerLose)
         {
             loseMenu.SetActive(true);
+
+            totalResources += collectedResources;
+            collectedResources = 0;
             playerLose = false;
         }
 
@@ -261,6 +267,8 @@ public class GameController : MonoBehaviour {
 
     public void restartLevel()
     {
+        spawningSpawnpoints = 99;
+        spawnpoints.Clear();
         Application.LoadLevel(Application.loadedLevel);
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
@@ -278,6 +286,8 @@ public class GameController : MonoBehaviour {
     public void quitLevel()
     {
         Application.LoadLevel("Planets");
+        spawningSpawnpoints = 99;
+        spawnpoints.Clear();
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
@@ -352,7 +362,7 @@ public class GameController : MonoBehaviour {
     {
         spawningSpawnpoints--;
         print("Spawnpoint done");
-        print(spawningSpawnpoints.ToString());
+        print("Spawnpoints left: " + spawningSpawnpoints.ToString());
     }
     
     private bool checkSpawnsFinished()
@@ -414,9 +424,9 @@ public class GameController : MonoBehaviour {
                GameObject Spawnpoint = Instantiate(spawnpoint, new Vector2(int.Parse(spawnpointChoords[0]), int.Parse(spawnpointChoords[1])), Quaternion.identity) as GameObject;
                Spawnpoint.GetComponent<SpawnController>().setup(enemies, currentDifficulty);
                spawnpointCounter++;
-                if(!gameCreated)
+               spawnpoints.Add(spawnpointCounter, Spawnpoint);
+                if (!gameCreated)
                 {
-                    spawnpoints.Add(spawnpointCounter, Spawnpoint);
                     gameCreated = true;
                 }
             }
@@ -435,7 +445,8 @@ public class GameController : MonoBehaviour {
 
         if (level == 4)
             initialiseLevel(currentLevel);
-        print(spawningSpawnpoints.ToString());
+        collectedResources = 0;
+        print("Spawnpoints: " + spawningSpawnpoints.ToString());
     }
 
     public void StartPlanetLevel()
