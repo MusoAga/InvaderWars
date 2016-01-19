@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour {
     public Text collectedRessourcesValueText = null;
     public Text totalRessourcesValueText = null;
 
+    // Ressourcen die Ingame und in der planetenübersicht angezeigt werden
+    private GameObject collectedValue, totalValue;
 
     /** Die Gesamtzahl der vom Player gesammelten Ressourcen in diesem Level.  */
     private int collectedResources = 0;
@@ -74,6 +76,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         checkMenus();
         checkLevels();
+        showRessources();
         if (checkSpawnsFinished() && !bossSpawned)
         {
             print("boss gespawnt");
@@ -106,16 +109,6 @@ public class GameController : MonoBehaviour {
 
         // Das Objekt nicht zerstören wenn man zwischen den Scenen navigiert
         DontDestroyOnLoad(gameObject);
-    }
-
-    /**
-    Methode um überall auf dem Screen zu zeichnen.
-    Wird in jedem Frame aufgerufen.
-    */
-    void OnGUI()
-    {
-        GUI.TextArea(new Rect((Screen.width - 200), 30, 150, 20), " Resources: " + totalResources.ToString());
-        GUI.TextArea(new Rect((100), 30, 150, 20), " Armor: " + player.GetComponent<PlayerController_Base>().getLifePoints().ToString());
     }
 
     /**
@@ -213,6 +206,16 @@ public class GameController : MonoBehaviour {
             playerLose = false;
         }
 
+    }
+
+    private void showRessources()
+    {
+
+        if (collectedValue != null)
+            collectedValue.GetComponent<Text>().text = collectedResources.ToString();
+
+        if (totalValue != null)
+            totalValue.GetComponent<Text>().text = totalResources.ToString();
     }
 
     public bool isPaused()
@@ -423,7 +426,10 @@ public class GameController : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
-        if(level == 4)
+        collectedValue = GameObject.Find("collectedValue");
+        totalValue = GameObject.Find("totalValue");
+
+        if (level == 4)
             initialiseLevel(currentLevel);
         print(spawningSpawnpoints.ToString());
     }
