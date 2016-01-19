@@ -46,7 +46,7 @@ Description:
 		<Difficulty>3</Difficulty>
 		<Enemytype_1>PoisonShooter</Enemytype_1>
 		<Enemytype_2>PoisonShip</Enemytype_2>
-		<Enemytype_3>Minethrower</Enemytype_3>
+		<Enemytype_3>LaserSphere</Enemytype_3>
 		<Enemytype_4>Skull</Enemytype_4>
 		
 		<Spawnpoint>
