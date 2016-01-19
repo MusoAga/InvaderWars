@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
@@ -9,6 +10,9 @@ public class PlayerController_Base : MonoBehaviour, Hitable
     public float fireRate = 20; // Schussrate
 	protected float currentFireCharge;
     public int lifePoints = 10; // Lebenspunkte
+    private int maxLifePoints;
+    float floorLifePoints;
+    float floorMaxPoints;
     public float fireRatestep;
     public float speedStep;
     public int frostResistence = 0;
@@ -16,6 +20,7 @@ public class PlayerController_Base : MonoBehaviour, Hitable
     public GameObject shot; // GameObjects, um Schüsse und Explosionen zu initialisieren. Enthält den aktuellen Schuss des Spielers
     public GameObject defaultShot;
     public GameObject laserShot;
+    private GameObject healthbar;
 
     public AudioClip shootSound; // Abgespielter Sound beim Schießen
     public AudioClip shootSound_Bullet;
@@ -24,6 +29,10 @@ public class PlayerController_Base : MonoBehaviour, Hitable
     public virtual void Start()
     {
         currentFireCharge = fireRate;
+        healthbar = GameObject.Find("healthbarValue");
+        maxLifePoints = lifePoints;
+        floorLifePoints = (float)lifePoints;
+        floorMaxPoints = (float)maxLifePoints;
     }
 
     // Update is called once per frame
@@ -43,6 +52,7 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         this.shot = defaultShot;
         this.shootSound = shootSound_Bullet;
         this.lifePoints = 3;
+        this.maxLifePoints = this.lifePoints;
         this.speed = 1;
         this.fireRate = 20;
 
@@ -91,6 +101,9 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         if (GetComponent<Effect_Damaged>() != null) return;
         gameObject.AddComponent<Effect_Damaged>();
         lifePoints -= damage;
+        floorLifePoints = (float)lifePoints;
+        float x = (floorLifePoints / floorMaxPoints);
+        healthbar.GetComponent<Image>().fillAmount = x;
         // Keine lifepoints mehr vorhanden ? Spieler stirbt
         if (lifePoints <= 0) onDestruction();
     }
@@ -103,11 +116,7 @@ public class PlayerController_Base : MonoBehaviour, Hitable
     public void increaseLifePoints()
     {
         lifePoints++;
-    }
-
-    public int getLifePoints()
-    {
-        return lifePoints;
+        maxLifePoints++;
     }
 
     public void changeShot(string shotType)
