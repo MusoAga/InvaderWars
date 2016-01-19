@@ -2,8 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 public class GameController : MonoBehaviour {
 
     /** Int mit Zahl des aktuellen Levels. Wird zur Initiierung des Levels beim Laden benutzt. */
@@ -23,7 +24,7 @@ public class GameController : MonoBehaviour {
     /** Die Gesamtzahl der vom Player gesammelten Ressourcen in diesem Level.  */
     private int collectedResources = 0;
     /** Die insgesamt Gesammelten Resourcen im ganzen Spiel */
-    private int totalResources = 100000;
+    private int totalResources = 10000;
 
     /** Boolean-Werte für Spieler Gewonnen bzw. Verloren*/
     private bool playerLose = false;
@@ -70,6 +71,7 @@ public class GameController : MonoBehaviour {
         print("Spawnpoints: " + spawningSpawnpoints.ToString());
         //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
+        player.GetComponent<PlayerController_Attack>().resetPlayerStats();
     }
 	
 	// Update is called once per frame
@@ -378,26 +380,28 @@ public class GameController : MonoBehaviour {
         enemyPath[3] = "Assets/Objekte/Enemy/Poison";
         enemyPath[4] = "Assets/Objekte/Enemy/Bosses";
         levelInfo = InitController.GetComponent<InitReaderController>().initialiseLevel(levelNumber);
-       
+
         foreach (string info in levelInfo.Keys)
         {
-            enemyPath[0] = "Assets/Objekte/Enemy";
+            //enemyPath[0] = "Assets/Objekte/Enemy";
             if (info.Contains("Enemytype_"))
             {
-               /* string[] guid = AssetDatabase.FindAssets(levelInfo[info],enemyPath);
-                if (!string.IsNullOrEmpty(guid[0]))
-                {
-                    print("nicht null");
-                    print(AssetDatabase.GUIDToAssetPath(guid[0]));
-                    enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(guid[0]), typeof(Object)) as GameObject;
-                    enemyCounter++;
-                }
-                else
-                {*/
-                    enemyPath[0] = "Assets/Objekte/Enemy/" + levelInfo[info] + ".prefab" ;
-                    enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(enemyPath[0], typeof(Object)) as GameObject;
-                    enemyCounter++;
-               // }
+
+                // string[] guid = AssetDatabase.FindAssets(levelInfo[info],enemyPath);
+                // if (!string.IsNullOrEmpty(guid[0]))
+                // {
+                //     print("nicht null");
+                //     print(AssetDatabase.GUIDToAssetPath(guid[0]));
+                //     enemies[enemyCounter] = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(guid[0]), typeof(Object)) as GameObject;
+                //     enemyCounter++;
+                // }
+                // else
+
+                //enemypath[0] = "assets/objekte/enemy/" + levelinfo[info] + ".prefab" ;
+                enemies[enemyCounter] = Resources.Load(levelInfo[info]) as GameObject;
+                // enemies[enemycounter] = assetdatabase.loadassetatpath(enemypath[0], typeof(object)) as gameobject;
+                enemyCounter++;
+
             }
             else if (info.Equals("Difficulty"))
             {

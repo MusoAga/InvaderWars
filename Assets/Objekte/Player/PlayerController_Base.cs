@@ -9,7 +9,7 @@ public class PlayerController_Base : MonoBehaviour, Hitable
 	public float speed = 1; // Bewegungsgeschwindigkeit des Spielers
     public float fireRate = 20; // Schussrate
 	protected float currentFireCharge;
-    public int lifePoints = 10; // Lebenspunkte
+    public int lifePoints = 3; // Lebenspunkte
     private int maxLifePoints;
     float floorLifePoints;
     float floorMaxPoints;
@@ -53,8 +53,8 @@ public class PlayerController_Base : MonoBehaviour, Hitable
         this.shootSound = shootSound_Bullet;
         this.lifePoints = 3;
         this.maxLifePoints = this.lifePoints;
-        this.speed = 1;
-        this.fireRate = 20;
+        this.speed = 2;
+        this.fireRate = 30;
 
     }
 

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Xml;
 using System.IO;
 using System.Text;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif 
 public class InitReaderController : MonoBehaviour
 {
     //Nummer des aktuell betrachteten Level
@@ -109,7 +110,7 @@ public class InitReaderController : MonoBehaviour
      * 
      * 
      * */
-
+#if UNITY_EDITOR
     private void createEnemyPreFabs()
     {
         string[] enemyPath = new string[1];
@@ -203,6 +204,7 @@ public class InitReaderController : MonoBehaviour
         }
         Debug.Log("100%");
     }
+#endif
 
 
     private bool isEnemyValid(Dictionary<string, string> enemy)
@@ -299,10 +301,10 @@ public class InitReaderController : MonoBehaviour
     public Dictionary<string, string> initialiseLevel(int currentLevel)
     {
         this.levelNumber = currentLevel;
-        print("Levelnumber: " + levelNumber.ToString());
-        Debug.Log("Initializing...\n");
+       // print("Levelnumber: " + levelNumber.ToString());
+       // Debug.Log("Initializing...\n");
         loadEnemies();
-        createEnemyPreFabs();
+       // createEnemyPreFabs();
 
         return loadLevel();
     }
