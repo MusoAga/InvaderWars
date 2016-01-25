@@ -94,7 +94,7 @@ public class EnemyController_Base : MonoBehaviour, Hitable {
 
     public void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.GetComponent<PlayerController_Base>() != null)
+        if (coll.gameObject.GetComponent<PlayerController_Base>() != null || coll.gameObject.GetComponent<PlayerBaseController>() != null)
         {
             coll.gameObject.GetComponent<Hitable>().dealDamage(1);
             onHit();

@@ -89,6 +89,7 @@
      <Compile Include="Assets\Script\LevelManager.cs" />
      <Compile Include="Assets\Script\ManagerInit.cs" />
      <Compile Include="Assets\Script\MusicController.cs" />
+     <Compile Include="Assets\Script\PlayerBaseController.cs" />
      <Compile Include="Assets\Script\Singleton.cs" />
      <None Include="Assets\Text\Enemy.xml" />
      <None Include="Assets\Text\Level.xml" />

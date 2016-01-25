@@ -39,7 +39,7 @@ public class ShotBehaviour : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.GetComponent<Hitable>() != null && coll.gameObject != owner)
+        if (coll.gameObject.GetComponent<Hitable>() != null && coll.gameObject != owner && coll.gameObject.GetComponent<PlayerBaseController>() == null)
         {
             coll.gameObject.GetComponent<Hitable>().dealDamage(damage);
             Destroy(gameObject);

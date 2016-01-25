@@ -57,6 +57,9 @@ public class GameController : MonoBehaviour {
     private bool laserUpgrade = false;
     public AudioClip unableSound;
 
+    //Variablen für die 
+    private List<GameObject> BaseList = new List<GameObject>();
+
     // Static singleton property
     public static GameController Instance { get; private set; }
 
@@ -67,6 +70,8 @@ public class GameController : MonoBehaviour {
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
+
+        currentLevel = 2;
 
         Time.timeScale = 1;
         //DontDestroyOnLoad(gameObject);
@@ -531,5 +536,10 @@ public class GameController : MonoBehaviour {
             }
 
             upgradeSlider = null;
+    }
+
+   public void removePlayerBase(GameObject playerBase)
+    {
+        BaseList.Remove(playerBase);
     }
 }
