@@ -57,6 +57,12 @@ public class GameController : MonoBehaviour {
     private bool laserUpgrade = false;
     public AudioClip unableSound;
 
+    //Highscore
+    public GameObject highscoreController;
+    private SortedList<string, int> highscoreList;
+    private GameObject scrollView;
+    private string highscoreString;
+
     //Variablen für die 
     private List<GameObject> BaseList = new List<GameObject>();
 
@@ -197,14 +203,10 @@ public class GameController : MonoBehaviour {
 
         if (playerWin)
         {
-
             winMenu.SetActive(true);
 
             collectedRessourcesValueText.text = collectedResources.ToString();
-
-            totalResources += collectedResources;
             totalRessourcesValueText.text = totalResources.ToString();
-
             
             collectedResources = 0;
             playerWin = false;
@@ -229,6 +231,26 @@ public class GameController : MonoBehaviour {
 
         if (totalValue != null)
             totalValue.GetComponent<Text>().text = totalResources.ToString();
+    }
+
+    public void updateHighscoreList()
+    {
+        highscoreController.GetComponent<HighscoreController>().addEntry("Max", 365);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Willi", 745);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Peter", 1585);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Ben", 65);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Killer", 12458);
+        highscoreList = highscoreController.GetComponent<HighscoreController>().getHighscoreList();
+
+        highscoreString = "";
+
+        foreach (KeyValuePair<string, int> entry in highscoreList)
+        {
+            highscoreString += "\n" + entry.Key + " " + entry.Value;
+        }
+
+        scrollView = GameObject.Find("HighscoreListView");
+        scrollView.GetComponent<ScrollRect>().content.GetComponent<Text>().text = highscoreString;
     }
 
     public bool isPaused()

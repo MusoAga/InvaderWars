@@ -5,7 +5,7 @@ using System.Collections;
 //ONLY FOR GAMEMENU
 public class LevelManager : MonoBehaviour {
 
-    public Transform mainMenu, optionsMenu, mitwirkendeMenu, upgradeMenu, planetMenu;
+    public Transform mainMenu, highscoreMenu, optionsMenu, mitwirkendeMenu, upgradeMenu, planetMenu;
 
     public Text PlanetInfo;
     public Text PlanetName;
@@ -71,6 +71,20 @@ public class LevelManager : MonoBehaviour {
         {
             optionsMenu.gameObject.SetActive(clicked);
             mitwirkendeMenu.gameObject.SetActive(true);
+        }
+    }
+
+    public void HighscoreMenu(bool clicked)
+    {
+        if (clicked)
+        {
+            highscoreMenu.gameObject.SetActive(clicked);
+            mainMenu.gameObject.SetActive(false);
+        }
+        else
+        {
+            highscoreMenu.gameObject.SetActive(clicked);
+            mainMenu.gameObject.SetActive(true);
         }
     }
 
