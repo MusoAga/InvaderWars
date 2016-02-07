@@ -7,21 +7,24 @@ public class HighscoreController : MonoBehaviour {
     private int entryPoints;
     private string entryName;
 
-    private SortedList<string, int> highscoreList;
+    private SortedList<int, string> highscoreList;
 
     public void addEntry(string name, int points)
     {
         if(highscoreList != null) {
-            highscoreList.Add(name, points);
-            print("Add highscore entry: " + name + " | " + points.ToString());
+            if (!highscoreList.ContainsKey(points))
+            {
+                highscoreList.Add(points, name);
+                print("Add highscore entry: " + name + " | " + points.ToString());
+            }
         }
         else {
-            highscoreList = new SortedList<string, int>();
+            highscoreList = new SortedList<int, string>();
             this.addEntry(name, points);
         }
     }
 
-    public SortedList<string, int> getHighscoreList()
+    public SortedList<int, string> getHighscoreList()
     {
         return highscoreList;
     }

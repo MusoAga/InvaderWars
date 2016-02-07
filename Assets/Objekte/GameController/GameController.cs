@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour {
 
     //Highscore
     public GameObject highscoreController;
-    private SortedList<string, int> highscoreList;
+    private SortedList<int, string> highscoreList;
     private GameObject scrollView;
     private string highscoreString;
 
@@ -83,6 +83,7 @@ public class GameController : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
         player.GetComponent<PlayerController_Attack>().resetPlayerStats();
+        updateHighscoreList();
     }
 	
 	// Update is called once per frame
@@ -235,18 +236,27 @@ public class GameController : MonoBehaviour {
 
     public void updateHighscoreList()
     {
-        highscoreController.GetComponent<HighscoreController>().addEntry("Max", 365);
-        highscoreController.GetComponent<HighscoreController>().addEntry("Willi", 745);
-        highscoreController.GetComponent<HighscoreController>().addEntry("Peter", 1585);
-        highscoreController.GetComponent<HighscoreController>().addEntry("Ben", 65);
-        highscoreController.GetComponent<HighscoreController>().addEntry("Killer", 12458);
+        // Test einträge
+        highscoreController.GetComponent<HighscoreController>().addEntry("Max", 458);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Willi", 1234);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Peter", 8547);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Ben", 9654);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Killer", 1357);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Thomas", 8745);
+        highscoreController.GetComponent<HighscoreController>().addEntry("ASD", 69852);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Vogel", 36521);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Hund", 1458);
+        // -------------
+
         highscoreList = highscoreController.GetComponent<HighscoreController>().getHighscoreList();
 
         highscoreString = "";
+        int index = 1;
 
-        foreach (KeyValuePair<string, int> entry in highscoreList)
+        foreach (KeyValuePair<int, string> entry in highscoreList)
         {
-            highscoreString += "\n" + entry.Key + " " + entry.Value;
+            highscoreString += "\n" + index + ". " + entry.Value + " " + entry.Key;
+            index++;
         }
 
         scrollView = GameObject.Find("HighscoreListView");
