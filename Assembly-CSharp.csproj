@@ -75,6 +75,7 @@
      <Compile Include="Assets\Objekte\Explosion\Explosion.cs" />
      <Compile Include="Assets\Objekte\GameController\GameController.cs" />
      <Compile Include="Assets\Objekte\GameController\GameController_Def.cs" />
+     <Compile Include="Assets\Objekte\HighscoreController\HighscoreController.cs" />
      <Compile Include="Assets\Objekte\Interface_Hitable.cs" />
      <Compile Include="Assets\Objekte\Player\Animationen\PlayerBase\PlayerBase_Def.cs" />
      <Compile Include="Assets\Objekte\Player\PlayerController_Attack.cs" />
@@ -93,11 +94,17 @@
      <Compile Include="Assets\Script\Singleton.cs" />
      <None Include="Assets\Text\Enemy.xml" />
      <None Include="Assets\Text\Level.xml" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
