@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour {
     public Text UpgradeName;
 
     private GameObject button;
+	//private bool planetSchema = false;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class LevelManager : MonoBehaviour {
         {
             upgradeMenu.gameObject.SetActive(false);
             planetMenu.gameObject.SetActive(true);
+
+			//planetSchema = true;
         }
     }
 
@@ -30,6 +33,33 @@ public class LevelManager : MonoBehaviour {
             FindObjectOfType<GameController>().unlockNextLevel();
             FindObjectOfType<GameController>().setLevelComplete(false);
         }
+
+		/* Wenn Planetenübersicht aktiv
+		if (planetSchema) {
+			// -> Attack
+			if (Input.GetButton ("Submit")) {
+
+				planetSchema = false;
+				StartPlanetLevel ();
+			}
+
+			// -> Menü
+			if (Input.GetButton ("Cancel")) {
+
+				planetSchema = false;
+				LoadScene ("GameMenu");
+
+			}
+
+			// -> Upgrades
+			if (Input.GetButton ("ButtonY")) {
+
+				planetSchema = false;
+				UpgradeMenu (true);
+
+
+			}
+		}*/
     }
 
     public void StartGame(string name)
@@ -53,6 +83,8 @@ public class LevelManager : MonoBehaviour {
         {
             optionsMenu.gameObject.SetActive(clicked);
             mainMenu.gameObject.SetActive(false);
+
+
         } else
         {
             optionsMenu.gameObject.SetActive(clicked);
@@ -102,9 +134,12 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+
+
     /*
     FÜR DIE PLANETENÜBERSICHT!
     */
+	//TODO direkt beim ausgewählten Button anzeigen, nicht erst nach dem Klicken
     public void UpdatePlanetInfo(string planetName)
     {
         if (planetName.Equals("IcePlanet"))
