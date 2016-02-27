@@ -207,4 +207,7 @@ public class LevelManager : MonoBehaviour {
         if(Input.GetMouseButtonUp(0))
             FindObjectOfType<GameController>().upgradePlayer(upgradeName);
     }
+		
+
+
 }
