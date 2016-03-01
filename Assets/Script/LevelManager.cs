@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 
 //ONLY FOR GAMEMENU
+using UnityEngine.EventSystems;
+
+
 public class LevelManager : MonoBehaviour {
 
     public Transform mainMenu, highscoreMenu, optionsMenu, mitwirkendeMenu, upgradeMenu, planetMenu;
@@ -11,6 +14,17 @@ public class LevelManager : MonoBehaviour {
     public Text PlanetName;
     public Text UpgradeInfo;
     public Text UpgradeName;
+
+	public GameObject icePlanet;
+	public GameObject swampPlanet;
+	public GameObject volcanoPlanet;
+
+	public GameObject lifepoints;
+	public GameObject fireRate;
+	public GameObject speed;
+	public GameObject frostresistenz;
+	public GameObject laser;
+
 
     private GameObject button;
 	//private bool planetSchema = false;
@@ -24,6 +38,8 @@ public class LevelManager : MonoBehaviour {
 
 			//planetSchema = true;
         }
+
+		//test = GameObject.Find ("SchwampPlanet");
     }
 
     void Update()
@@ -34,32 +50,54 @@ public class LevelManager : MonoBehaviour {
             FindObjectOfType<GameController>().setLevelComplete(false);
         }
 
-		/* Wenn Planetenübersicht aktiv
-		if (planetSchema) {
-			// -> Attack
-			if (Input.GetButton ("Submit")) {
 
-				planetSchema = false;
-				StartPlanetLevel ();
-			}
+		//Infotexte der Planeten sollen schon bei einem ausgewählten Button(Planeten) gezeigt werden
+		if (icePlanet == EventSystem.current.currentSelectedGameObject) {
 
-			// -> Menü
-			if (Input.GetButton ("Cancel")) {
+			PlanetInfo.text = "Schnee, Eis und die Kälte.\nDie Umgebung macht das Leben\nfür die Raumschiffe schwer.";
+			PlanetName.text = "Iconom";
+			FindObjectOfType<GameController>().setCurrentLevel(1);
+		}
+		else if (swampPlanet == EventSystem.current.currentSelectedGameObject)
+		{
+			PlanetInfo.text = "Gift";
+			PlanetName.text = "Gifti";
+			FindObjectOfType<GameController>().setCurrentLevel(2);
+		}
+		else if (volcanoPlanet == EventSystem.current.currentSelectedGameObject)
+		{
+			PlanetInfo.text = "FEUER!";
+			PlanetName.text = "Feuri";
+			FindObjectOfType<GameController>().setCurrentLevel(3);
+		}
 
-				planetSchema = false;
-				LoadScene ("GameMenu");
-
-			}
-
-			// -> Upgrades
-			if (Input.GetButton ("ButtonY")) {
-
-				planetSchema = false;
-				UpgradeMenu (true);
-
-
-			}
-		}*/
+		//Infotexte der Updates
+		if (lifepoints == EventSystem.current.currentSelectedGameObject)
+		{
+			UpgradeInfo.text = "Upgrade your armor to \nwithstand your enemies!";
+			UpgradeName.text = "Increase  Armor: +1";
+		}
+		else if (fireRate == EventSystem.current.currentSelectedGameObject)
+		{
+			UpgradeInfo.text = "With this upgrade, you can\n shoot your enemies faster!";
+			UpgradeName.text = "Increase  Firerate: +1";
+		}
+		else if (speed == EventSystem.current.currentSelectedGameObject)
+		{
+			UpgradeInfo.text = "With this you can dodge\n the shoots very skillfully!";
+			UpgradeName.text = "Increase  Speed: +1";
+		}
+		else if (frostresistenz == EventSystem.current.currentSelectedGameObject)
+		{
+			UpgradeInfo.text = "Don't let your enemies slow you down!";
+			UpgradeName.text = "Increase Frost Resistance: +1";
+		}
+		else if (laser == EventSystem.current.currentSelectedGameObject)
+		{
+			UpgradeInfo.text = "Piiow  Piiow!";
+			UpgradeName.text = "Unbelievable  Laser  Shot";
+		}
+	
     }
 
     public void StartGame(string name)
@@ -139,7 +177,7 @@ public class LevelManager : MonoBehaviour {
     /*
     FÜR DIE PLANETENÜBERSICHT!
     */
-	//TODO direkt beim ausgewählten Button anzeigen, nicht erst nach dem Klicken
+	//TODO Kann weg
     public void UpdatePlanetInfo(string planetName)
     {
         if (planetName.Equals("IcePlanet"))
@@ -166,6 +204,7 @@ public class LevelManager : MonoBehaviour {
     /*
     FÜR DIE UPGRADES!
     */
+	//TODO Kann weg
     public void UpdateUpgradeInfo(string upgradeName)
     {
 
@@ -207,6 +246,7 @@ public class LevelManager : MonoBehaviour {
         if(Input.GetMouseButtonUp(0))
             FindObjectOfType<GameController>().upgradePlayer(upgradeName);
     }
+		
 		
 
 
