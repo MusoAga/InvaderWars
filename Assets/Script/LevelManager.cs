@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour {
             FindObjectOfType<GameController>().setLevelComplete(false);
         }
 
-
+        if(Application.loadedLevelName.Equals("Planets")) {
 		//Infotexte der Planeten sollen schon bei einem ausgewählten Button(Planeten) gezeigt werden
 		if (icePlanet == EventSystem.current.currentSelectedGameObject) {
 
@@ -97,7 +97,8 @@ public class LevelManager : MonoBehaviour {
 			UpgradeInfo.text = "Piiow  Piiow!";
 			UpgradeName.text = "Unbelievable  Laser  Shot";
 		}
-	
+        }
+
     }
 
     public void StartGame(string name)
