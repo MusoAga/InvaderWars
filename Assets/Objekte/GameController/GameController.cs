@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 //using UnityEngine.SceneManagement;
 using System.Collections;
@@ -15,6 +16,19 @@ public class GameController : MonoBehaviour {
     private bool levelComplete = false;
 
     public GameObject pauseMenu, winMenu, loseMenu, planetTemp;
+
+	//Button
+	private GameObject pauseStartButton;
+	private GameObject winStartButton;
+	private GameObject loseStartButton;
+
+	//Button
+	private GameObject pauseResume;
+	private GameObject pauseRestart;
+	private GameObject pauseEnd;
+	private GameObject winResume;
+	private GameObject loseRestart;
+	private GameObject loseEnd;
 
     public Text collectedRessourcesValueText = null;
     public Text totalRessourcesValueText = null;
@@ -194,37 +208,84 @@ public class GameController : MonoBehaviour {
         collectedResources += resources;
     }
 
-    public void checkMenus()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            tooglePause();
+	public void checkMenus()
+	{
+		//TODO Nur im Spiel nicht aber in den Menüs anzeigen
+		//TODO Navigation
+		if(Input.GetButtonDown("Pause"))
+			tooglePause();
 
-        if (pause)
-            pauseMenu.SetActive(true);
-        else
-            pauseMenu.SetActive(false);
+		if (pause) {
+			pauseMenu.SetActive (true);
 
-        if (playerWin)
-        {
-            winMenu.SetActive(true);
+			//Finde Button
+			pauseResume = GameObject.Find ("PauseMenu/Panel/Resume");
+			pauseRestart = GameObject.Find ("PauseMenu/Panel/Restart");
+			pauseEnd = GameObject.Find ("PauseMenu/Panel/End");
 
-            collectedRessourcesValueText.text = collectedResources.ToString();
-            totalRessourcesValueText.text = totalResources.ToString();
-            
-            collectedResources = 0;
-            playerWin = false;
-        }
+			setButtonColorTint (pauseResume);
+			setButtonColorTint (pauseRestart);
+			setButtonColorTint (pauseEnd);
 
-        if (playerLose)
-        {
-            loseMenu.SetActive(true);
+			//Button sollen blau leuchten, wenn sie ausgewählt sind
+			setButtonHighlighted (pauseResume);
+			setButtonHighlighted (pauseRestart);
+			setButtonHighlighted (pauseEnd);
 
-            //totalResources += collectedResources;
-            collectedResources = 0;
-            playerLose = false;
-        }
+			pauseStartButton = GameObject.Find ("PauseMenu/Panel/Resume");
+			//Setzt StartButton für Controller Steuerung
+			EventSystem.current.SetSelectedGameObject (pauseStartButton);
 
-    }
+		}else
+			pauseMenu.SetActive(false);
+
+		if (playerWin)
+		{
+			winMenu.SetActive(true);
+
+			//Finde Button
+			winResume = GameObject.Find ("WinMenu/Panel/Resume");
+
+			setButtonColorTint (winResume);
+
+			//Button sollen blau leuchten, wenn sie ausgewählt sind
+			setButtonHighlighted (winResume);
+
+			winStartButton = GameObject.Find ("WinMenu/Panel/Resume");
+			//Setzt StartButton für Controller Steuerung
+			EventSystem.current.SetSelectedGameObject (winStartButton);
+
+			collectedRessourcesValueText.text = collectedResources.ToString();
+			totalRessourcesValueText.text = totalResources.ToString();
+
+			collectedResources = 0;
+			playerWin = false;
+		}
+
+		if (playerLose)
+		{
+			loseMenu.SetActive(true);
+
+			//Finde Button
+			loseRestart = GameObject.Find ("LoseMenu/Panel/Restart");
+			loseEnd = GameObject.Find ("LoseMenu/Panel/End");
+
+			setButtonColorTint (loseRestart);
+			setButtonColorTint(loseEnd);
+
+			//Button sollen blau leuchten, wenn sie ausgewählt sind
+			setButtonHighlighted (loseRestart);
+			setButtonHighlighted (loseEnd);
+
+			loseStartButton = GameObject.Find ("LoseMenu/Panel/Restart");
+			//Setzt StartButton für Controller Steuerung
+			EventSystem.current.SetSelectedGameObject (loseStartButton);
+			//totalResources += collectedResources;
+			collectedResources = 0;
+			playerLose = false;
+		}
+
+	}
 
     private void showRessources()
     {
@@ -574,4 +635,20 @@ public class GameController : MonoBehaviour {
     {
         BaseList.Remove(playerBase);
     }
+
+	//Button leuchtet blau auf, wenn er ausgewählt ist
+	private void setButtonHighlighted(GameObject buttonObject){
+
+		Button b = buttonObject.GetComponent<Button> ();
+		ColorBlock cb = b.colors;
+		cb.highlightedColor = Color.cyan;
+		b.colors = cb;
+	}
+
+	//erst ColorTint, dann kann der Button "gehighlighted" werden
+	private void setButtonColorTint(GameObject buttonObject){
+
+		Button b = buttonObject.GetComponent<Button>();
+		b.transition = Selectable.Transition.ColorTint;
+	}
 }
