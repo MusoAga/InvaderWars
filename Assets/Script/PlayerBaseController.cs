@@ -26,7 +26,6 @@ public class PlayerBaseController : MonoBehaviour,Hitable {
     private void onBaseDestruction()
     {
         Explosion.explode(this.gameObject);
-        gameController.GetComponent<GameController>().removePlayerBase(gameObject);
         Destroy(gameObject);
     }
 

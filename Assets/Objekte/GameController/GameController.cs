@@ -7,7 +7,8 @@ using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     /** Int mit Zahl des aktuellen Levels. Wird zur Initiierung des Levels beim Laden benutzt. */
     private int currentLevel;
@@ -17,18 +18,18 @@ public class GameController : MonoBehaviour {
 
     public GameObject pauseMenu, winMenu, loseMenu, planetTemp;
 
-	//Button
-	private GameObject pauseStartButton;
-	private GameObject winStartButton;
-	private GameObject loseStartButton;
+    //Button
+    private GameObject pauseStartButton;
+    private GameObject winStartButton;
+    private GameObject loseStartButton;
 
-	//Button
-	private GameObject pauseResume;
-	private GameObject pauseRestart;
-	private GameObject pauseEnd;
-	private GameObject winResume;
-	private GameObject loseRestart;
-	private GameObject loseEnd;
+    //Button
+    private GameObject pauseResume;
+    private GameObject pauseRestart;
+    private GameObject pauseEnd;
+    private GameObject winResume;
+    private GameObject loseRestart;
+    private GameObject loseEnd;
 
     public Text collectedRessourcesValueText = null;
     public Text totalRessourcesValueText = null;
@@ -69,14 +70,14 @@ public class GameController : MonoBehaviour {
     private int speedUpgrade = 3;
     private int frostResistance = 3;
     private bool laserUpgrade = false;
-    public AudioClip unableSound;
+    public AudioSource soundEffect;
 
     //Highscore
     public GameObject highscoreController;
     private SortedList<int, string> highscoreList;
     private GameObject scrollView;
     private string highscoreString;
-    private string[] highscoreNames = { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6" };
+    private string[] highscoreNames = { "Rene", "Benjamin", "Jana", "Mustafa", "Dieter", "Hans" };
 
     //Variablen für die 
     private List<GameObject> BaseList = new List<GameObject>();
@@ -85,11 +86,15 @@ public class GameController : MonoBehaviour {
     public static GameController Instance { get; private set; }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //make sure menus are disabled
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
+
+        soundEffect = GetComponent<AudioSource>();
+        totalResources = 300;
 
         currentLevel = 2;
 
@@ -98,11 +103,12 @@ public class GameController : MonoBehaviour {
         OnLevelWasLoaded(Application.loadedLevel);
         player.GetComponent<PlayerController_Attack>().resetPlayerStats();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Application.loadedLevel.Equals("Planets")) checkLevels();
         checkMenus();
-        checkLevels();
         showRessources();
         updateHighscoreList();
         if (!bossSpawned && checkSpawnsFinished())
@@ -110,7 +116,8 @@ public class GameController : MonoBehaviour {
             spawningSpawnpoints = 99;
             bossSpawned = true;
             print("boss gespawnt");
-            foreach(KeyValuePair<int, GameObject> pair in spawnpoints){
+            foreach (KeyValuePair<int, GameObject> pair in spawnpoints)
+            {
                 if (pair.Key.Equals(1))
                 {
                     bossSpawned = true;
@@ -166,8 +173,6 @@ public class GameController : MonoBehaviour {
         Time.timeScale = 0;
         playerLose = false;
         playerWin = true;
-        int randomIndex = Random.Range(0, highscoreNames.Length);
-        highscoreController.GetComponent<HighscoreController>().addEntry( highscoreNames[randomIndex], totalResources );
     }
 
     /**
@@ -208,84 +213,86 @@ public class GameController : MonoBehaviour {
         collectedResources += resources;
     }
 
-	public void checkMenus()
-	{
-		//TODO Nur im Spiel nicht aber in den Menüs anzeigen
-		//TODO Navigation
-		if(Input.GetButtonDown("Pause"))
-			tooglePause();
+    public void checkMenus()
+    {
+        //TODO Nur im Spiel nicht aber in den Menüs anzeigen
+        //TODO Navigation
+        if (Input.GetButtonDown("Pause"))
+            tooglePause();
 
-		if (pause) {
-			pauseMenu.SetActive (true);
+        if (pause)
+        {
+            pauseMenu.SetActive(true);
 
-			//Finde Button
-			pauseResume = GameObject.Find ("PauseMenu/Panel/Resume");
-			pauseRestart = GameObject.Find ("PauseMenu/Panel/Restart");
-			pauseEnd = GameObject.Find ("PauseMenu/Panel/End");
+            //Finde Button
+            pauseResume = GameObject.Find("PauseMenu/Panel/Resume");
+            pauseRestart = GameObject.Find("PauseMenu/Panel/Restart");
+            pauseEnd = GameObject.Find("PauseMenu/Panel/End");
 
-			setButtonColorTint (pauseResume);
-			setButtonColorTint (pauseRestart);
-			setButtonColorTint (pauseEnd);
+            setButtonColorTint(pauseResume);
+            setButtonColorTint(pauseRestart);
+            setButtonColorTint(pauseEnd);
 
-			//Button sollen blau leuchten, wenn sie ausgewählt sind
-			setButtonHighlighted (pauseResume);
-			setButtonHighlighted (pauseRestart);
-			setButtonHighlighted (pauseEnd);
+            //Button sollen blau leuchten, wenn sie ausgewählt sind
+            setButtonHighlighted(pauseResume);
+            setButtonHighlighted(pauseRestart);
+            setButtonHighlighted(pauseEnd);
 
-			pauseStartButton = GameObject.Find ("PauseMenu/Panel/Resume");
-			//Setzt StartButton für Controller Steuerung
-			EventSystem.current.SetSelectedGameObject (pauseStartButton);
+            pauseStartButton = GameObject.Find("PauseMenu/Panel/Resume");
+            //Setzt StartButton für Controller Steuerung
+            EventSystem.current.SetSelectedGameObject(pauseStartButton);
 
-		}else
-			pauseMenu.SetActive(false);
+        }
+        else
+            pauseMenu.SetActive(false);
 
-		if (playerWin)
-		{
-			winMenu.SetActive(true);
+        if (playerWin)
+        {
+            winMenu.SetActive(true);
 
-			//Finde Button
-			winResume = GameObject.Find ("WinMenu/Panel/Resume");
+            //Finde Button
+            winResume = GameObject.Find("WinMenu/Panel/Resume");
 
-			setButtonColorTint (winResume);
+            setButtonColorTint(winResume);
 
-			//Button sollen blau leuchten, wenn sie ausgewählt sind
-			setButtonHighlighted (winResume);
+            //Button sollen blau leuchten, wenn sie ausgewählt sind
+            setButtonHighlighted(winResume);
 
-			winStartButton = GameObject.Find ("WinMenu/Panel/Resume");
-			//Setzt StartButton für Controller Steuerung
-			EventSystem.current.SetSelectedGameObject (winStartButton);
+            winStartButton = GameObject.Find("WinMenu/Panel/Resume");
+            //Setzt StartButton für Controller Steuerung
+            EventSystem.current.SetSelectedGameObject(winStartButton);
 
-			collectedRessourcesValueText.text = collectedResources.ToString();
-			totalRessourcesValueText.text = totalResources.ToString();
+            collectedRessourcesValueText.text = collectedResources.ToString();
+            totalRessourcesValueText.text = totalResources.ToString();
 
-			collectedResources = 0;
-			playerWin = false;
-		}
+            collectedResources = 0;
+            playerWin = false;
+        }
 
-		if (playerLose)
-		{
-			loseMenu.SetActive(true);
+        if (playerLose)
+        {
+            loseMenu.SetActive(true);
 
-			//Finde Button
-			loseRestart = GameObject.Find ("LoseMenu/Panel/Restart");
-			loseEnd = GameObject.Find ("LoseMenu/Panel/End");
+            //Finde Button
+            loseRestart = GameObject.Find("LoseMenu/Panel/Restart");
+            loseEnd = GameObject.Find("LoseMenu/Panel/End");
 
-			setButtonColorTint (loseRestart);
-			setButtonColorTint(loseEnd);
+            setButtonColorTint(loseRestart);
+            setButtonColorTint(loseEnd);
 
-			//Button sollen blau leuchten, wenn sie ausgewählt sind
-			setButtonHighlighted (loseRestart);
-			setButtonHighlighted (loseEnd);
+            //Button sollen blau leuchten, wenn sie ausgewählt sind
+            setButtonHighlighted(loseRestart);
+            setButtonHighlighted(loseEnd);
 
-			loseStartButton = GameObject.Find ("LoseMenu/Panel/Restart");
-			//Setzt StartButton für Controller Steuerung
-			EventSystem.current.SetSelectedGameObject (loseStartButton);
-			//totalResources += collectedResources;
-			collectedResources = 0;
-			playerLose = false;
-		}
+            loseStartButton = GameObject.Find("LoseMenu/Panel/Restart");
+            //Setzt StartButton für Controller Steuerung
+            EventSystem.current.SetSelectedGameObject(loseStartButton);
+            //totalResources += collectedResources;
+            collectedResources = 0;
+            playerLose = false;
+        }
 
-	}
+    }
 
     private void showRessources()
     {
@@ -301,7 +308,7 @@ public class GameController : MonoBehaviour {
     {
         highscoreList = highscoreController.GetComponent<HighscoreController>().getHighscoreList();
 
-        if(highscoreList != null)
+        if (highscoreList != null)
         {
             highscoreString = "";
             int index = 1;
@@ -394,46 +401,32 @@ public class GameController : MonoBehaviour {
 
     public void checkLevels()
     {
-        if(levelTemp == 2)
-        {
-            planetTemp = GameObject.Find("IcePlanet");
-            planetTemp.GetComponent<Button>().interactable = true;
-        }
-        else if (levelTemp == 3)
-        {
-            planetTemp = GameObject.Find("IcePlanet");
-
-            if(planetTemp != null)
-                planetTemp.GetComponent<Button>().interactable = true;
-
-            planetTemp = GameObject.Find("VolcanoPlanet");
-
-            if (planetTemp != null)
-                planetTemp.GetComponent<Button>().interactable = true;
-        }
+        if (levelComplete) unlockNextLevel();
     }
 
     public void unlockNextLevel()
     {
-        if(levelComplete)
+        levelTemp += 1;
+        print(levelTemp);
+        if (levelTemp == 2)
         {
-
-            levelTemp += 1;
-
-            if (levelTemp == 2)
-            {
-                planetTemp = GameObject.Find("IcePlanet");
-                planetTemp.GetComponent<Button>().interactable = true;
-            }
-            else if (levelTemp == 3)
-            {
-                planetTemp = GameObject.Find("VolcanoPlanet");
-                planetTemp.GetComponent<Button>().interactable = true;
-            }
-
-            planetTemp = null;
-            print("Nächstes Level freigeschaltet");
+            planetTemp = GameObject.Find("IcePlanet");
+            planetTemp.GetComponent<Button>().interactable = true;
+            print("Ice Level freigeschaltet");
         }
+        else if (levelTemp == 3)
+        {
+            planetTemp = GameObject.Find("VolcanoPlanet");
+            planetTemp.GetComponent<Button>().interactable = true;
+            print("Lava Level freigeschaltet");
+        } else if(levelTemp == 4)
+        {
+            int randomIndex = Random.Range(0, highscoreNames.Length);
+            highscoreController.GetComponent<HighscoreController>().addEntry(highscoreNames[randomIndex], totalResources);
+        }
+
+        planetTemp = null;
+        setLevelComplete(false);
     }
 
     public void setLevelComplete(bool complete)
@@ -453,7 +446,6 @@ public class GameController : MonoBehaviour {
         winMenu.SetActive(false);
         loseMenu.SetActive(false);
         pause = false;
-        unlockNextLevel();
     }
 
     public void spawnFinished()
@@ -462,7 +454,7 @@ public class GameController : MonoBehaviour {
         print("Spawnpoint done");
         print("Spawnpoints left: " + spawningSpawnpoints.ToString());
     }
-    
+
     private bool checkSpawnsFinished()
     {
         if (spawningSpawnpoints == 0)
@@ -475,7 +467,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void initialiseLevel(int levelNumber) 
+    public void initialiseLevel(int levelNumber)
     {
         enemies = new GameObject[4];
         currentDifficulty = 0;
@@ -518,11 +510,11 @@ public class GameController : MonoBehaviour {
 
             else if (info.Contains("Spawnpoint_"))
             {
-               spawnpointChoords = levelInfo[info].Split(new char[] {','});
-               GameObject Spawnpoint = Instantiate(spawnpoint, new Vector2(int.Parse(spawnpointChoords[0]), int.Parse(spawnpointChoords[1])), Quaternion.identity) as GameObject;
-               Spawnpoint.GetComponent<SpawnController>().setup(enemies, currentDifficulty);
-               spawnpointCounter++;
-               spawnpoints.Add(spawnpointCounter, Spawnpoint);
+                spawnpointChoords = levelInfo[info].Split(new char[] { ',' });
+                GameObject Spawnpoint = Instantiate(spawnpoint, new Vector2(int.Parse(spawnpointChoords[0]), int.Parse(spawnpointChoords[1])), Quaternion.identity) as GameObject;
+                Spawnpoint.GetComponent<SpawnController>().setup(enemies, currentDifficulty);
+                spawnpointCounter++;
+                spawnpoints.Add(spawnpointCounter, Spawnpoint);
                 if (!gameCreated)
                 {
                     gameCreated = true;
@@ -557,98 +549,108 @@ public class GameController : MonoBehaviour {
 
     public void upgradePlayer(string upgrade)
     {
-            //Lebensupgrade
-            if (upgrade.Equals("Lifepoints") && lifeUpgrade > 0 && totalResources >= 300)
-            {
-                player.GetComponent<PlayerController_Attack>().increaseLifePoints();
-                lifeUpgrade--;
-                upgradeSlider = GameObject.Find("ArmorSlider");
-                upgradeSlider.GetComponent<Slider>().value += 1;
-                totalResources -= 300;
-            }
-            else if (upgrade.Equals("Lifepoints") && lifeUpgrade <= 0)
-            {
-                GetComponent<AudioSource>().PlayOneShot(unableSound);
-            }
+        //Lebensupgrade
+        if (upgrade.Equals("Lifepoints") && lifeUpgrade > 0 && totalResources >= 300)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseLifePoints();
+            lifeUpgrade--;
+            upgradeSlider = GameObject.Find("ArmorSlider");
+            upgradeSlider.GetComponent<Slider>().value += 1;
+            totalResources -= 300;
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuSelect");
+            soundEffect.PlayOneShot(soundEffect.clip);
+        }
+        else if (upgrade.Equals("Lifepoints") || lifeUpgrade <= 0)
+        {
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuUnavailable");
+            soundEffect.PlayOneShot(soundEffect.clip);
+        }
 
-            //Upgrade der Feuerrate
-            if (upgrade.Equals("Firerate") && firerateUpgrade > 0 && totalResources >= 200)
-            {
-                player.GetComponent<PlayerController_Attack>().increaseFireRate();
-                firerateUpgrade--;
-                upgradeSlider = GameObject.Find("FirerateSlider");
-                upgradeSlider.GetComponent<Slider>().value += 1;
-                totalResources -= 200;
-            }
-            else if (upgrade.Equals("Firerate") && firerateUpgrade <= 0)
-            {
-                GetComponent<AudioSource>().PlayOneShot(unableSound);
-            }
+        //Upgrade der Feuerrate
+        if (upgrade.Equals("Firerate") && firerateUpgrade > 0 && totalResources >= 200)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseFireRate();
+            firerateUpgrade--;
+            upgradeSlider = GameObject.Find("FirerateSlider");
+            upgradeSlider.GetComponent<Slider>().value += 1;
+            totalResources -= 200;
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuSelect");
+            soundEffect.PlayOneShot(soundEffect.clip);
+        }
+        else if (upgrade.Equals("Firerate") || firerateUpgrade <= 0)
+        {
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuUnavailable");
+            soundEffect.Play();
+        }
 
-            //Speedupgrade
-            if (upgrade.Equals("Speed") && speedUpgrade > 0 && totalResources >= 250)
-            {
-                player.GetComponent<PlayerController_Attack>().increaseSpeed();
-                speedUpgrade--;
-                upgradeSlider = GameObject.Find("SpeedSlider");
-                upgradeSlider.GetComponent<Slider>().value += 1;
-                totalResources -= 250;
-            }
-            else if (upgrade.Equals("Speed") && speedUpgrade <= 0)
-            {
-                GetComponent<AudioSource>().PlayOneShot(unableSound);
-            }
+        //Speedupgrade
+        if (upgrade.Equals("Speed") && speedUpgrade > 0 && totalResources >= 250)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseSpeed();
+            speedUpgrade--;
+            upgradeSlider = GameObject.Find("SpeedSlider");
+            upgradeSlider.GetComponent<Slider>().value += 1;
+            totalResources -= 250;
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuSelect");
+            soundEffect.PlayOneShot(soundEffect.clip);
+        }
+        else if (upgrade.Equals("Speed") || speedUpgrade <= 0)
+        {
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuUnavailable");
+            soundEffect.Play();
+        }
 
 
-            //Upgrade der Frostresistenz
-            if (upgrade.Equals("Frostresistenz") && frostResistance > 0 && totalResources >= 300)
-            {
-                player.GetComponent<PlayerController_Attack>().increaseFrostResistence();
-                frostResistance--;
-                upgradeSlider = GameObject.Find("FrostSlider");
-                upgradeSlider.GetComponent<Slider>().value += 1;
-                totalResources -= 300;
-            }
-            else if (upgrade.Equals("Frostresistenz") && frostResistance <= 0)
-            {
-                GetComponent<AudioSource>().PlayOneShot(unableSound);
-            }
+        //Upgrade der Frostresistenz
+        if (upgrade.Equals("Frostresistenz") && frostResistance > 0 && totalResources >= 300)
+        {
+            player.GetComponent<PlayerController_Attack>().increaseFrostResistence();
+            frostResistance--;
+            upgradeSlider = GameObject.Find("FrostSlider");
+            upgradeSlider.GetComponent<Slider>().value += 1;
+            totalResources -= 300;
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuSelect");
+            soundEffect.PlayOneShot(soundEffect.clip);
+        }
+        else if (upgrade.Equals("Frostresistenz") || frostResistance <= 0)
+        {
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuUnavailable");
+            soundEffect.Play();
+        }
 
-            //Upgrade der Frostresistenz
-            if (upgrade.Equals("Schusswechsel") && laserUpgrade == false && totalResources >= 3000)
-            {
-                player.GetComponent<PlayerController_Attack>().changeShot("Laser");
-                laserUpgrade = true;
-                upgradeSlider = GameObject.Find("LaserSlider");
-                upgradeSlider.GetComponent<Slider>().value += 1;
-                totalResources -= 3000;
-            }
-            else if (upgrade.Equals("Schusswechsel") && laserUpgrade == true)
-            {
-                GetComponent<AudioSource>().PlayOneShot(unableSound);
-            }
+        //Upgrade der Frostresistenz
+        if (upgrade.Equals("Schusswechsel") && laserUpgrade == false && totalResources >= 3000)
+        {
+            player.GetComponent<PlayerController_Attack>().changeShot("Laser");
+            laserUpgrade = true;
+            upgradeSlider = GameObject.Find("LaserSlider");
+            upgradeSlider.GetComponent<Slider>().value += 1;
+            totalResources -= 3000;
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuSelect");
+            soundEffect.PlayOneShot(soundEffect.clip);
+        }
+        else if (upgrade.Equals("Schusswechsel") || laserUpgrade == true)
+        {
+            soundEffect.clip = Resources.Load<AudioClip>("Sound/MenuUnavailable");
+            soundEffect.Play();
+        }
 
-            upgradeSlider = null;
+        upgradeSlider = null;
     }
 
-   public void removePlayerBase(GameObject playerBase)
+    //Button leuchtet blau auf, wenn er ausgewählt ist
+    private void setButtonHighlighted(GameObject buttonObject)
     {
-        BaseList.Remove(playerBase);
+        Button b = buttonObject.GetComponent<Button>();
+        ColorBlock cb = b.colors;
+        cb.highlightedColor = Color.cyan;
+        b.colors = cb;
     }
 
-	//Button leuchtet blau auf, wenn er ausgewählt ist
-	private void setButtonHighlighted(GameObject buttonObject){
-
-		Button b = buttonObject.GetComponent<Button> ();
-		ColorBlock cb = b.colors;
-		cb.highlightedColor = Color.cyan;
-		b.colors = cb;
-	}
-
-	//erst ColorTint, dann kann der Button "gehighlighted" werden
-	private void setButtonColorTint(GameObject buttonObject){
-
-		Button b = buttonObject.GetComponent<Button>();
-		b.transition = Selectable.Transition.ColorTint;
-	}
+    //erst ColorTint, dann kann der Button "gehighlighted" werden
+    private void setButtonColorTint(GameObject buttonObject)
+    {
+        Button b = buttonObject.GetComponent<Button>();
+        b.transition = Selectable.Transition.ColorTint;
+    }
 }
