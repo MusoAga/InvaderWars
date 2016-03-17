@@ -72,7 +72,7 @@ public class SpawnController : MonoBehaviour {
            }
            else if(totalEnemiesSpawned > 4 & totalEnemiesSpawned <= 6)
            {
-               if(rnd >= 0.51f)
+               if(rnd >= 0.65f)
                {
                    enemy = enemies[0];
                }
@@ -83,11 +83,11 @@ public class SpawnController : MonoBehaviour {
           }
           else if(totalEnemiesSpawned > 6)
           {
-               if(rnd <= 0.125f)
+               if(rnd <= 0.5f)
                {
                    enemy = enemies[0];
                }
-               else if(rnd > 0.125f & rnd <= 0.7f)
+               else if(rnd > 0.5f & rnd <= 0.7f)
                {
                    enemy = enemies[1];
                }
