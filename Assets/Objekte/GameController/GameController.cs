@@ -104,6 +104,12 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
+
+        highscoreController.GetComponent<HighscoreController>().addEntry("Player1", 2541);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Player2", 148);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Player3", 236);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Player4", 1258);
+        highscoreController.GetComponent<HighscoreController>().addEntry("Player5", 1697);
     }
 
     // Update is called once per frame
