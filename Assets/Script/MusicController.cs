@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MusicController : MonoBehaviour {
@@ -6,9 +7,10 @@ public class MusicController : MonoBehaviour {
     public static MusicController instance = null;
 
     private AudioSource audioSource;
+    private bool inMenu = true;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
 
         if (instance == null)
             instance = this;
@@ -26,10 +28,18 @@ public class MusicController : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
-        if(level == 4)
+        if(level == 4 && inMenu)
         {
             playIngameMusic();
+            inMenu = false;
         }
+
+        if(level == 1 && !inMenu)
+        {
+            playMenuMusic();
+            inMenu = true;
+        }
+
     }
 
     // Update is called once per frame
