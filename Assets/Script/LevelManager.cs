@@ -103,6 +103,12 @@ public class LevelManager : MonoBehaviour {
 
     public void StartGame(string name)
     {
+        FindObjectOfType<GameController>().setGameMode(true);
+        Application.LoadLevel(name);
+    }
+
+    public void continueGame(string name)
+    {
         Application.LoadLevel(name);
     }
 

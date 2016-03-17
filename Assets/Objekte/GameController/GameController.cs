@@ -47,6 +47,9 @@ public class GameController : MonoBehaviour
     private bool playerWin = false;
     private bool pause = false;
 
+    //Boolean-Wert für die Continue-Steuerung
+    public bool new_game = true;
+
     //Referenzen auf die Spawning- bzw. Initialisierungskomponenten
     public GameObject InitController;
     public GameObject spawnpoint;
@@ -101,7 +104,6 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         //DontDestroyOnLoad(gameObject);
         OnLevelWasLoaded(Application.loadedLevel);
-        player.GetComponent<PlayerController_Attack>().resetPlayerStats();
     }
 
     // Update is called once per frame
@@ -536,8 +538,20 @@ public class GameController : MonoBehaviour
         if (level == 4)
             initialiseLevel(currentLevel);
         collectedResources = 0;
-        print("Spawnpoints: " + spawningSpawnpoints.ToString());
+        if(level == 1 && new_game)
+        {
+            player.GetComponent<PlayerController_Attack>().resetPlayerStats();
+            new_game = false;
+        }
+        //print("Spawnpoints: " + spawningSpawnpoints.ToString());
     }
+
+    public void setGameMode (bool _game)
+    {
+        new_game = _game;
+    }
+   
+
 
     public void StartPlanetLevel()
     {
